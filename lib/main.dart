@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+      initialRoute: AppRoutes.login,
       routes: {
         AppRoutes.login: (BuildContext context) => LoginPage(),
         AppRoutes.submissions: (BuildContext context) => SubmissionsPage(),
