@@ -1,4 +1,5 @@
-import 'package:case_manager/ui/pages/common/widgets/drawers/SimpleDrawer.dart';
+import 'package:case_manager/ui/pages/common/widgets/drawers/AppDrawer.dart';
+import 'package:case_manager/ui/pages/common/widgets/scaffolds/ThemedScaffold.dart';
 import "package:flutter/material.dart";
 
 class DrawerScaffold extends StatelessWidget {
@@ -15,20 +16,20 @@ class DrawerScaffold extends StatelessWidget {
     final theme = Theme.of(context);
     final bool mobileLayout = MediaQuery.of(context).size.width < 600;
     return (mobileLayout)
-        ? Scaffold(
+        ? ThemedScaffold(
             appBar: AppBar(
               elevation: 0,
               backgroundColor: theme.canvasColor,
               iconTheme: IconThemeData(color: theme.primaryColor),
             ),
-            drawer: SimpleDrawer(),
+            drawer: AppDrawer(),
             body: buildBody(),
           )
-        : Scaffold(
+        : ThemedScaffold(
             body: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SimpleDrawer(),
+                AppDrawer(),
                 Expanded(
                   child: buildBody(),
                 ),

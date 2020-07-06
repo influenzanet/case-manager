@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 
-class SimpleDrawer extends StatefulWidget {
+class AppDrawer extends StatefulWidget {
   @override
-  _SimpleDrawerState createState() => _SimpleDrawerState();
+  _AppDrawerState createState() => _AppDrawerState();
 }
 
-class _SimpleDrawerState extends State<SimpleDrawer> {
+class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
