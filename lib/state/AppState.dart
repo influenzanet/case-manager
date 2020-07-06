@@ -1,3 +1,4 @@
+import 'package:case_manager/api/Api.dart';
 import 'package:case_manager/state/BaseState.dart';
 
 class AppState extends BaseState {
@@ -29,6 +30,7 @@ class AppState extends BaseState {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
     _expiresAt = DateTime.now().millisecondsSinceEpoch + expiresIn * 60000;
+    Api.updateAuthentication(accessToken);
     update();
   }
 }

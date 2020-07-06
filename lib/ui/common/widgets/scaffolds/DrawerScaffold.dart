@@ -4,12 +4,27 @@ import "package:flutter/material.dart";
 import 'ThemedScaffold.dart';
 
 class DrawerScaffold extends StatelessWidget {
+  final String title;
   final Widget body;
 
-  DrawerScaffold({this.body});
+  DrawerScaffold(this.title, this.body);
 
-  Widget buildBody() {
-    return SingleChildScrollView(child: body);
+  Widget buildBody(BuildContext context) {
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headline3,
+          ),
+          body,
+        ],
+      ),
+    ));
   }
 
   @override
@@ -24,7 +39,7 @@ class DrawerScaffold extends StatelessWidget {
               iconTheme: IconThemeData(color: theme.primaryColor),
             ),
             drawer: AppDrawer(),
-            body: buildBody(),
+            body: buildBody(context),
           )
         : ThemedScaffold(
             body: Row(
@@ -32,7 +47,7 @@ class DrawerScaffold extends StatelessWidget {
               children: [
                 AppDrawer(),
                 Expanded(
-                  child: buildBody(),
+                  child: buildBody(context),
                 ),
               ],
             ),
