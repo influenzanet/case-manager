@@ -1,6 +1,7 @@
-import 'package:case_manager/common/routes/AppRoutes.dart';
-import 'package:case_manager/common/widgets/scaffolds/ThemedScaffold.dart';
 import 'package:flutter/material.dart';
+
+import 'common/routes/AppRoutes.dart';
+import 'common/widgets/scaffolds/ThemedScaffold.dart';
 
 class LoginPage extends StatefulWidget {
   @override

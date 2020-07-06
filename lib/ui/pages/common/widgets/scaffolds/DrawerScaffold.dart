@@ -1,4 +1,4 @@
-import 'package:case_manager/common/widgets/drawers/SimpleDrawer.dart';
+import 'package:case_manager/ui/pages/common/widgets/drawers/SimpleDrawer.dart';
 import "package:flutter/material.dart";
 
 class DrawerScaffold extends StatelessWidget {

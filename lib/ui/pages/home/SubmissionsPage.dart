@@ -1,4 +1,4 @@
-import 'package:case_manager/common/widgets/scaffolds/DrawerScaffold.dart';
+import 'package:case_manager/ui/pages/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:flutter/material.dart';
 
 class SubmissionsPage extends StatefulWidget {
@@ -14,10 +14,10 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Text(
-          //   "Submissions",
-          //   style: Theme.of(context).textTheme.headline3,
-          // ),
+          Text(
+            "Submissions",
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ],
       ),
     );

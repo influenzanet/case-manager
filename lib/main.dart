@@ -1,9 +1,13 @@
-import 'package:case_manager/common/routes/AppRoutes.dart';
-import 'package:case_manager/pages/LoginPage.dart';
-import 'package:case_manager/pages/home/SubmissionsPage.dart';
+import 'package:case_manager/api/Api.dart';
+import 'package:case_manager/ui/pages/LoginPage.dart';
+import 'package:case_manager/ui/pages/common/routes/AppRoutes.dart';
+import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
-void main() {
+void main() async {
+  await GlobalConfiguration().loadFromAsset("config");
+  Api.initialize();
   runApp(MyApp());
 }
 
