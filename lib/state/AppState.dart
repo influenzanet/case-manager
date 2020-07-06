@@ -1,14 +1,14 @@
 import 'package:case_manager/state/BaseState.dart';
 
 class AppState extends BaseState {
-  String _id;
+  String _userId;
   String _preferredLanguage;
 
   String _accessToken;
   String _refreshToken;
   int _expiresAt;
 
-  String get id => _id;
+  String get userId => _userId;
   String get preferredLanguage => _preferredLanguage;
   String get accessToken => _accessToken;
   String get refreshToken => _refreshToken;
@@ -19,8 +19,8 @@ class AppState extends BaseState {
     update();
   }
 
-  setUser(String id, String preferredLanguage) {
-    _id = id;
+  setUser(String userId, String preferredLanguage) {
+    _userId = userId;
     _preferredLanguage = preferredLanguage;
     update();
   }
