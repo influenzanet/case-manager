@@ -5,10 +5,14 @@ import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 
-void main() async {
+void main() {
+  runApp(MyApp());
+  initialize();
+}
+
+void initialize() async {
   await GlobalConfiguration().loadFromAsset("config");
   Api.initialize();
-  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
