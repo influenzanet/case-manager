@@ -1,3 +1,4 @@
+import 'package:case_manager/logic/LoginManager.dart';
 import 'package:flutter/material.dart';
 
 import 'common/routes/AppRoutes.dart';
@@ -81,12 +82,15 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Container(height: 32),
                         FlatButton(
-                          onPressed: () {
-                            print(emailEditingController.text);
-                            print(passwordEditingController.text);
-
+                          onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              Navigator.of(context).pushNamed(AppRoutes.submissions);
+                              if (await LoginManager.login(
+                                context,
+                                emailEditingController.text,
+                                passwordEditingController.text,
+                              )) {
+                                Navigator.of(context).pushNamed(AppRoutes.submissions);
+                              }
                             }
                           },
                           child: Padding(

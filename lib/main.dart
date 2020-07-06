@@ -1,18 +1,25 @@
-import 'package:case_manager/api/Api.dart';
+import 'package:case_manager/state/AppState.dart';
 import 'package:case_manager/ui/pages/LoginPage.dart';
 import 'package:case_manager/ui/pages/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
+import 'package:provider/provider.dart';
+
+import 'config/Config.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppState(),
+      child: MyApp(),
+    ),
+  );
+
   initialize();
 }
 
 void initialize() async {
-  await GlobalConfiguration().loadFromAsset("config");
-  Api.initialize();
+  await Config.initialize();
 }
 
 class MyApp extends StatelessWidget {
