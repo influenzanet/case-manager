@@ -1,4 +1,4 @@
-import 'package:case_manager/ui/pages/common/widgets/scaffolds/DrawerScaffold.dart';
+import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:flutter/material.dart';
 
 class SubmissionsPage extends StatefulWidget {

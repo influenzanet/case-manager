@@ -1,6 +1,6 @@
 import 'package:case_manager/state/AppState.dart';
 import 'package:case_manager/ui/pages/LoginPage.dart';
-import 'package:case_manager/ui/pages/common/routes/AppRoutes.dart';
+import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

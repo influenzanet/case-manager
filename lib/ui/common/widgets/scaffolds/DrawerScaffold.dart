@@ -1,6 +1,7 @@
-import 'package:case_manager/ui/pages/common/widgets/drawers/AppDrawer.dart';
-import 'package:case_manager/ui/pages/common/widgets/scaffolds/ThemedScaffold.dart';
+import 'package:case_manager/ui/common/widgets/drawers/AppDrawer.dart';
 import "package:flutter/material.dart";
+
+import 'ThemedScaffold.dart';
 
 class DrawerScaffold extends StatelessWidget {
   final Widget body;

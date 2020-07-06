@@ -1,8 +1,8 @@
 import 'package:case_manager/logic/LoginManager.dart';
 import 'package:flutter/material.dart';
 
-import 'common/routes/AppRoutes.dart';
-import 'common/widgets/scaffolds/ThemedScaffold.dart';
+import '../common/routes/AppRoutes.dart';
+import '../common/widgets/scaffolds/ThemedScaffold.dart';
 
 class LoginPage extends StatefulWidget {
   @override
