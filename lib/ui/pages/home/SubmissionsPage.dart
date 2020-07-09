@@ -13,8 +13,8 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
 
   @override
   void initState() {
-    _fetchData();
     super.initState();
+    _fetchData();
   }
 
   void _fetchData() async {

@@ -26,4 +26,9 @@ class LoginManager {
   static Future<bool> logout(BuildContext context) async {
     return false;
   }
+
+  static bool hasAccessToken(BuildContext context) {
+    final state = Provider.of<AppState>(context, listen: false);
+    return state.accessToken != null && state.accessToken.length > 0;
+  }
 }

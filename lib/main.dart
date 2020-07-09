@@ -1,7 +1,7 @@
 import 'package:case_manager/state/AppState.dart';
 import 'package:case_manager/ui/pages/LoginPage.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
-import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
+import 'package:case_manager/ui/pages/home/HomeNavigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,14 @@ void initialize() async {
   await Config.initialize();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,10 +51,23 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      navigatorKey: navigatorKey,
       initialRoute: AppRoutes.login,
-      routes: {
-        AppRoutes.login: (BuildContext context) => LoginPage(),
-        AppRoutes.submissions: (BuildContext context) => SubmissionsPage(),
+      onGenerateRoute: (RouteSettings settings) {
+        WidgetBuilder builder;
+
+        switch (settings.name) {
+          case AppRoutes.home:
+            builder = (BuildContext _) => HomeNavigator();
+            break;
+          case AppRoutes.login:
+            builder = (BuildContext _) => LoginPage();
+            break;
+          default:
+            builder = (BuildContext _) => LoginPage();
+        }
+
+        return MaterialPageRoute(builder: builder, settings: settings);
       },
     );
   }

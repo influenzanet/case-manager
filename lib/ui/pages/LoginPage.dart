@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                 emailEditingController.text,
                                 passwordEditingController.text,
                               )) {
-                                Navigator.of(context).pushNamed(AppRoutes.submissions);
+                                Navigator.of(context).pushReplacementNamed(AppRoutes.home);
                               }
                             }
                           },
