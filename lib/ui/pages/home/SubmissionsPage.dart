@@ -1,4 +1,6 @@
 import 'package:case_manager/api/Api.dart';
+import 'package:case_manager/api/types/Responses/StudiesResponse.dart';
+import 'package:case_manager/api/types/StudyInfos.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +10,8 @@ class SubmissionsPage extends StatefulWidget {
 }
 
 class _SubmissionsPageState extends State<SubmissionsPage> {
-  final _studies = new List<String>();
-  String _selectedStudy = "";
+  final _studies = new List<StudyInfos>();
+  String _selectedStudyKey = "";
 
   @override
   void initState() {
@@ -20,12 +22,13 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   void _fetchData() async {
     try {
       var response = await Api.getAllStudies();
-      if (response == null) return;
+      if (response.statusCode != 200) return;
+      var studyResponse = StudiesResponse.fromJson(response.data);
 
       setState(() {
         _studies.clear();
-        _studies.addAll((response.data["studies"] as List<dynamic>).map((study) => study["key"]));
-        _selectedStudy = _studies != null ? _studies[0] : "";
+        _studies.addAll(studyResponse.studies);
+        _selectedStudyKey = _studies != null ? _studies[0].key : "";
       });
     } catch (e) {
       print(e);
@@ -44,14 +47,14 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
             children: [
               if (_studies.length > 0)
                 DropdownButton(
-                  value: _selectedStudy,
+                  value: _selectedStudyKey,
                   items: _studies
                       .map<DropdownMenuItem<String>>(
-                          (String study) => DropdownMenuItem<String>(value: study, child: Text(study)))
+                          (StudyInfos study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
                       .toList(),
-                  onChanged: (String newStudy) => {
+                  onChanged: (String newStudyKey) => {
                     setState(() {
-                      _selectedStudy = newStudy;
+                      _selectedStudyKey = newStudyKey;
                     })
                   },
                 ),
