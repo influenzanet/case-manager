@@ -20,6 +20,24 @@
 			"type": "shell",
 			"command": "flutter pub run build_runner watch",
 			"problemMatcher": []
+		},
+		{
+			"label": "Generate API",
+			"type": "shell",
+			"command": "./scripts/generate_api.sh",
+			"problemMatcher": []
+		},
+		{
+			"label": "Update Submodules",
+			"type": "shell",
+			"command": "git submodule update --recursive --remote",
+			"problemMatcher": []
+		},
+		{
+			"label": "Update & Generate Submodules",
+			"type": "shell",
+			"command": "./scripts/update_and_generate_api.sh",
+			"problemMatcher": []
 		}
 	]
 }

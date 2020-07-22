@@ -28,6 +28,7 @@ dependencies:
   dio: ^3.0.9
   influenzanet_survey_engine: ^0.1.1
   json_annotation: ^3.0.1
+  protobuf: ^1.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
