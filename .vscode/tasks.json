@@ -10,18 +10,6 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Generate Json Serialization",
-			"type": "shell",
-			"command": "flutter pub run build_runner build",
-			"problemMatcher": []
-		},
-		{
-			"label": "Watch Json Serialization",
-			"type": "shell",
-			"command": "flutter pub run build_runner watch",
-			"problemMatcher": []
-		},
-		{
 			"label": "Generate API",
 			"type": "shell",
 			"command": "./scripts/generate_api.sh",

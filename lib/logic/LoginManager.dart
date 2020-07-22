@@ -1,5 +1,5 @@
 import 'package:case_manager/api/Api.dart';
-import 'package:case_manager/api/types/Responses/LoginResponse.dart';
+import 'package:case_manager/generated/api/user_management/user-management-service.pb.dart';
 import 'package:case_manager/state/AppState.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class LoginManager {
       final state = Provider.of<AppState>(context, listen: false);
       var response = await Api.login(email, password);
       if (response.statusCode != 200) return false;
-      var loginResponse = LoginResponse.fromJson(response.data);
+      var loginResponse = LoginResponse()..mergeFromProto3Json(response.data);
       var tokens = loginResponse.token;
       var user = loginResponse.user;
 
