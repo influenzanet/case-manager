@@ -24,12 +24,24 @@ class Api {
     );
   }
 
-  static Future<Response> getResponseStatistics(String studyKey, int startTimestamp, int endTimestamp) async {
+  static Future<Response> getResponseStatistics(String studyKey, {int startTimestamp, int endTimestamp}) async {
     return await _authClient.get(
       "$dataApiUrl/$studyKey/statistics",
       queryParameters: {
-        "from": (startTimestamp / 1000).round(),
-        "until": (endTimestamp / 1000).round(),
+        if (startTimestamp != null) "from": (startTimestamp / 1000).round(),
+        if (endTimestamp != null) "until": (endTimestamp / 1000).round(),
+      },
+    );
+  }
+
+  static Future<Response> getSurveyResponses(String studyKey,
+      {int startTimeStamp, int endTimeStamp, String surveyKey}) async {
+    return await _authClient.get(
+      "$dataApiUrl/$studyKey/responses",
+      queryParameters: {
+        if (startTimeStamp != null) "from": (startTimeStamp / 1000).round(),
+        if (endTimeStamp != null) "until": (endTimeStamp / 1000).round(),
+        if (surveyKey != null) "surveyKey": surveyKey,
       },
     );
   }
