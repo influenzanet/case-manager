@@ -15,8 +15,9 @@ const Study$json = const {
     const {'1': 'props', '3': 5, '4': 1, '5': 11, '6': '.influenzanet.study_service.Study.Props', '10': 'props'},
     const {'1': 'rules', '3': 6, '4': 3, '5': 11, '6': '.influenzanet.study_service.Expression', '10': 'rules'},
     const {'1': 'members', '3': 7, '4': 3, '5': 11, '6': '.influenzanet.study_service.Study.Member', '10': 'members'},
+    const {'1': 'stats', '3': 8, '4': 1, '5': 11, '6': '.influenzanet.study_service.Study.Stats', '10': 'stats'},
   ],
-  '3': const [Study_Props$json, Study_Member$json],
+  '3': const [Study_Props$json, Study_Member$json, Study_Stats$json],
 };
 
 const Study_Props$json = const {
@@ -37,6 +38,14 @@ const Study_Member$json = const {
     const {'1': 'user_id', '3': 1, '4': 1, '5': 9, '10': 'userId'},
     const {'1': 'role', '3': 2, '4': 1, '5': 9, '10': 'role'},
     const {'1': 'username', '3': 3, '4': 1, '5': 9, '10': 'username'},
+  ],
+};
+
+const Study_Stats$json = const {
+  '1': 'Stats',
+  '2': const [
+    const {'1': 'participant_count', '3': 1, '4': 1, '5': 3, '10': 'participantCount'},
+    const {'1': 'response_count', '3': 2, '4': 1, '5': 3, '10': 'responseCount'},
   ],
 };
 

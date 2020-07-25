@@ -127,6 +127,47 @@ class Study_Member extends $pb.GeneratedMessage {
   void clearUsername() => clearField(3);
 }
 
+class Study_Stats extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Study.Stats', package: const $pb.PackageName('influenzanet.study_service'), createEmptyInstance: create)
+    ..aInt64(1, 'participantCount')
+    ..aInt64(2, 'responseCount')
+    ..hasRequiredFields = false
+  ;
+
+  Study_Stats._() : super();
+  factory Study_Stats() => create();
+  factory Study_Stats.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Study_Stats.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  Study_Stats clone() => Study_Stats()..mergeFromMessage(this);
+  Study_Stats copyWith(void Function(Study_Stats) updates) => super.copyWith((message) => updates(message as Study_Stats));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Study_Stats create() => Study_Stats._();
+  Study_Stats createEmptyInstance() => create();
+  static $pb.PbList<Study_Stats> createRepeated() => $pb.PbList<Study_Stats>();
+  @$core.pragma('dart2js:noInline')
+  static Study_Stats getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Study_Stats>(create);
+  static Study_Stats _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get participantCount => $_getI64(0);
+  @$pb.TagNumber(1)
+  set participantCount($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasParticipantCount() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearParticipantCount() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get responseCount => $_getI64(1);
+  @$pb.TagNumber(2)
+  set responseCount($fixnum.Int64 v) { $_setInt64(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasResponseCount() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearResponseCount() => clearField(2);
+}
+
 class Study extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Study', package: const $pb.PackageName('influenzanet.study_service'), createEmptyInstance: create)
     ..aOS(1, 'id')
@@ -136,6 +177,7 @@ class Study extends $pb.GeneratedMessage {
     ..aOM<Study_Props>(5, 'props', subBuilder: Study_Props.create)
     ..pc<$7.Expression>(6, 'rules', $pb.PbFieldType.PM, subBuilder: $7.Expression.create)
     ..pc<Study_Member>(7, 'members', $pb.PbFieldType.PM, subBuilder: Study_Member.create)
+    ..aOM<Study_Stats>(8, 'stats', subBuilder: Study_Stats.create)
     ..hasRequiredFields = false
   ;
 
@@ -206,6 +248,17 @@ class Study extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(7)
   $core.List<Study_Member> get members => $_getList(6);
+
+  @$pb.TagNumber(8)
+  Study_Stats get stats => $_getN(7);
+  @$pb.TagNumber(8)
+  set stats(Study_Stats v) { setField(8, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasStats() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearStats() => clearField(8);
+  @$pb.TagNumber(8)
+  Study_Stats ensureStats() => $_ensure(7);
 }
 
 class Tag extends $pb.GeneratedMessage {

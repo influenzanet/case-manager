@@ -119,6 +119,7 @@ const SurveyInfoResp_SurveyInfo$json = const {
     const {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
     const {'1': 'name', '3': 2, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'name'},
     const {'1': 'description', '3': 3, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'description'},
+    const {'1': 'typical_duration', '3': 4, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'typicalDuration'},
   ],
 };
 
@@ -279,6 +280,7 @@ const StudyServiceApiServiceBase$messageJson = const {
   '.influenzanet.study_service.SurveyReferenceRequest': SurveyReferenceRequest$json,
   '.influenzanet.study_service.SurveyAndContext': SurveyAndContext$json,
   '.influenzanet.study_service.Survey': $8.Survey$json,
+  '.influenzanet.study_service.Survey.Props': $8.Survey_Props$json,
   '.influenzanet.study_service.LocalisedObject': $8.LocalisedObject$json,
   '.influenzanet.study_service.ExpressionArg': $7.ExpressionArg$json,
   '.influenzanet.study_service.Expression': $7.Expression$json,
@@ -306,6 +308,7 @@ const StudyServiceApiServiceBase$messageJson = const {
   '.influenzanet.study_service.Study.Props': $9.Study_Props$json,
   '.influenzanet.study_service.Tag': $9.Tag$json,
   '.influenzanet.study_service.Study.Member': $9.Study_Member$json,
+  '.influenzanet.study_service.Study.Stats': $9.Study_Stats$json,
   '.influenzanet.study_service.StudyReferenceReq': StudyReferenceReq$json,
   '.influenzanet.study_service.SurveyInfoResp': SurveyInfoResp$json,
   '.influenzanet.study_service.SurveyInfoResp.SurveyInfo': SurveyInfoResp_SurveyInfo$json,

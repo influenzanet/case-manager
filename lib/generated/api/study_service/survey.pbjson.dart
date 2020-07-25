@@ -25,13 +25,22 @@ const Survey$json = const {
   '1': 'Survey',
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    const {'1': 'name', '3': 2, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'name'},
+    const {'1': 'props', '3': 2, '4': 1, '5': 11, '6': '.influenzanet.study_service.Survey.Props', '10': 'props'},
     const {'1': 'current', '3': 3, '4': 1, '5': 11, '6': '.influenzanet.study_service.SurveyVersion', '10': 'current'},
     const {'1': 'history', '3': 4, '4': 3, '5': 11, '6': '.influenzanet.study_service.SurveyVersion', '10': 'history'},
-    const {'1': 'description', '3': 5, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'description'},
-    const {'1': 'prefill_rules', '3': 6, '4': 3, '5': 11, '6': '.influenzanet.study_service.Expression', '10': 'prefillRules'},
-    const {'1': 'context_rules', '3': 7, '4': 1, '5': 11, '6': '.influenzanet.study_service.SurveyContextDef', '10': 'contextRules'},
-    const {'1': 'max_items_per_page', '3': 8, '4': 1, '5': 11, '6': '.influenzanet.study_service.MaxItemsPerPage', '10': 'maxItemsPerPage'},
+    const {'1': 'prefill_rules', '3': 5, '4': 3, '5': 11, '6': '.influenzanet.study_service.Expression', '10': 'prefillRules'},
+    const {'1': 'context_rules', '3': 6, '4': 1, '5': 11, '6': '.influenzanet.study_service.SurveyContextDef', '10': 'contextRules'},
+    const {'1': 'max_items_per_page', '3': 7, '4': 1, '5': 11, '6': '.influenzanet.study_service.MaxItemsPerPage', '10': 'maxItemsPerPage'},
+  ],
+  '3': const [Survey_Props$json],
+};
+
+const Survey_Props$json = const {
+  '1': 'Props',
+  '2': const [
+    const {'1': 'name', '3': 1, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'name'},
+    const {'1': 'description', '3': 2, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'description'},
+    const {'1': 'typical_duration', '3': 3, '4': 3, '5': 11, '6': '.influenzanet.study_service.LocalisedObject', '10': 'typicalDuration'},
   ],
 };
 

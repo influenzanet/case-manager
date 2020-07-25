@@ -85,16 +85,48 @@ class SurveyContextDef extends $pb.GeneratedMessage {
   $core.List<$7.Expression> get previousResponses => $_getList(1);
 }
 
+class Survey_Props extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Survey.Props', package: const $pb.PackageName('influenzanet.study_service'), createEmptyInstance: create)
+    ..pc<LocalisedObject>(1, 'name', $pb.PbFieldType.PM, subBuilder: LocalisedObject.create)
+    ..pc<LocalisedObject>(2, 'description', $pb.PbFieldType.PM, subBuilder: LocalisedObject.create)
+    ..pc<LocalisedObject>(3, 'typicalDuration', $pb.PbFieldType.PM, subBuilder: LocalisedObject.create)
+    ..hasRequiredFields = false
+  ;
+
+  Survey_Props._() : super();
+  factory Survey_Props() => create();
+  factory Survey_Props.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Survey_Props.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  Survey_Props clone() => Survey_Props()..mergeFromMessage(this);
+  Survey_Props copyWith(void Function(Survey_Props) updates) => super.copyWith((message) => updates(message as Survey_Props));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Survey_Props create() => Survey_Props._();
+  Survey_Props createEmptyInstance() => create();
+  static $pb.PbList<Survey_Props> createRepeated() => $pb.PbList<Survey_Props>();
+  @$core.pragma('dart2js:noInline')
+  static Survey_Props getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Survey_Props>(create);
+  static Survey_Props _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<LocalisedObject> get name => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.List<LocalisedObject> get description => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<LocalisedObject> get typicalDuration => $_getList(2);
+}
+
 class Survey extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Survey', package: const $pb.PackageName('influenzanet.study_service'), createEmptyInstance: create)
     ..aOS(1, 'id')
-    ..pc<LocalisedObject>(2, 'name', $pb.PbFieldType.PM, subBuilder: LocalisedObject.create)
+    ..aOM<Survey_Props>(2, 'props', subBuilder: Survey_Props.create)
     ..aOM<SurveyVersion>(3, 'current', subBuilder: SurveyVersion.create)
     ..pc<SurveyVersion>(4, 'history', $pb.PbFieldType.PM, subBuilder: SurveyVersion.create)
-    ..pc<LocalisedObject>(5, 'description', $pb.PbFieldType.PM, subBuilder: LocalisedObject.create)
-    ..pc<$7.Expression>(6, 'prefillRules', $pb.PbFieldType.PM, subBuilder: $7.Expression.create)
-    ..aOM<SurveyContextDef>(7, 'contextRules', subBuilder: SurveyContextDef.create)
-    ..aOM<MaxItemsPerPage>(8, 'maxItemsPerPage', subBuilder: MaxItemsPerPage.create)
+    ..pc<$7.Expression>(5, 'prefillRules', $pb.PbFieldType.PM, subBuilder: $7.Expression.create)
+    ..aOM<SurveyContextDef>(6, 'contextRules', subBuilder: SurveyContextDef.create)
+    ..aOM<MaxItemsPerPage>(7, 'maxItemsPerPage', subBuilder: MaxItemsPerPage.create)
     ..hasRequiredFields = false
   ;
 
@@ -123,7 +155,15 @@ class Survey extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<LocalisedObject> get name => $_getList(1);
+  Survey_Props get props => $_getN(1);
+  @$pb.TagNumber(2)
+  set props(Survey_Props v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProps() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProps() => clearField(2);
+  @$pb.TagNumber(2)
+  Survey_Props ensureProps() => $_ensure(1);
 
   @$pb.TagNumber(3)
   SurveyVersion get current => $_getN(2);
@@ -140,32 +180,29 @@ class Survey extends $pb.GeneratedMessage {
   $core.List<SurveyVersion> get history => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<LocalisedObject> get description => $_getList(4);
+  $core.List<$7.Expression> get prefillRules => $_getList(4);
 
   @$pb.TagNumber(6)
-  $core.List<$7.Expression> get prefillRules => $_getList(5);
+  SurveyContextDef get contextRules => $_getN(5);
+  @$pb.TagNumber(6)
+  set contextRules(SurveyContextDef v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasContextRules() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearContextRules() => clearField(6);
+  @$pb.TagNumber(6)
+  SurveyContextDef ensureContextRules() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  SurveyContextDef get contextRules => $_getN(6);
+  MaxItemsPerPage get maxItemsPerPage => $_getN(6);
   @$pb.TagNumber(7)
-  set contextRules(SurveyContextDef v) { setField(7, v); }
+  set maxItemsPerPage(MaxItemsPerPage v) { setField(7, v); }
   @$pb.TagNumber(7)
-  $core.bool hasContextRules() => $_has(6);
+  $core.bool hasMaxItemsPerPage() => $_has(6);
   @$pb.TagNumber(7)
-  void clearContextRules() => clearField(7);
+  void clearMaxItemsPerPage() => clearField(7);
   @$pb.TagNumber(7)
-  SurveyContextDef ensureContextRules() => $_ensure(6);
-
-  @$pb.TagNumber(8)
-  MaxItemsPerPage get maxItemsPerPage => $_getN(7);
-  @$pb.TagNumber(8)
-  set maxItemsPerPage(MaxItemsPerPage v) { setField(8, v); }
-  @$pb.TagNumber(8)
-  $core.bool hasMaxItemsPerPage() => $_has(7);
-  @$pb.TagNumber(8)
-  void clearMaxItemsPerPage() => clearField(8);
-  @$pb.TagNumber(8)
-  MaxItemsPerPage ensureMaxItemsPerPage() => $_ensure(7);
+  MaxItemsPerPage ensureMaxItemsPerPage() => $_ensure(6);
 }
 
 class MaxItemsPerPage extends $pb.GeneratedMessage {

@@ -392,6 +392,7 @@ class SurveyInfoResp_SurveyInfo extends $pb.GeneratedMessage {
     ..aOS(1, 'key')
     ..pc<$8.LocalisedObject>(2, 'name', $pb.PbFieldType.PM, subBuilder: $8.LocalisedObject.create)
     ..pc<$8.LocalisedObject>(3, 'description', $pb.PbFieldType.PM, subBuilder: $8.LocalisedObject.create)
+    ..pc<$8.LocalisedObject>(4, 'typicalDuration', $pb.PbFieldType.PM, subBuilder: $8.LocalisedObject.create)
     ..hasRequiredFields = false
   ;
 
@@ -424,6 +425,9 @@ class SurveyInfoResp_SurveyInfo extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(3)
   $core.List<$8.LocalisedObject> get description => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$8.LocalisedObject> get typicalDuration => $_getList(3);
 }
 
 class SurveyInfoResp extends $pb.GeneratedMessage {
