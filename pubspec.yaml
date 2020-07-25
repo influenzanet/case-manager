@@ -28,6 +28,7 @@ dependencies:
   dio: ^3.0.9
   protobuf: ^1.0.1
   fixnum: ^0.10.11
+  universal_html: ^1.2.3
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -5,7 +5,7 @@ import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
 
 class SubmissionsPage extends StatefulWidget {
   @override
