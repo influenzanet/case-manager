@@ -1,6 +1,7 @@
 import 'package:case_manager/api/Api.dart';
 import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
 import 'package:case_manager/generated/api/study_service/study.pb.dart';
+import 'package:case_manager/logic/FileSaver.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
@@ -80,20 +81,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
       Api.getSurveyResponses,
       query,
       onSuccess: (response) {
-        // prepare
-        final bytes = utf8.encode(json.encode(response.data));
-        final blob = html.Blob([bytes]);
-        final url = html.Url.createObjectUrlFromBlob(blob);
-        final anchor = html.document.createElement('a') as html.AnchorElement
-          ..href = url
-          ..style.display = 'none'
-          ..download = 'responses.json';
-        html.document.body.children.add(anchor);
-        // download
-        anchor.click();
-        // cleanup
-        html.document.body.children.remove(anchor);
-        html.Url.revokeObjectUrl(url);
+        FileSaver.saveTextFile("responses.json", json.encode(response.data));
       },
     );
   }
