@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:case_manager/config/Config.dart';
-import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
-import 'package:case_manager/generated/api/user_management/user-management-service.pbserver.dart';
 import 'package:dio/dio.dart';
 
 typedef ApiFunctionWithParameter<T> = Future<Response> Function(T message);
@@ -75,37 +73,6 @@ class Api {
       print(e);
       if (onException != null) onException(e);
     }
-  }
-
-  static Future<Response> login(LoginWithEmailMsg loginMessage) async {
-    return await client.post("$authUrl/login-with-email", data: loginMessage.toProto3Json());
-  }
-
-  static Future<Response> getAllStudies() async {
-    return await authClient.get(
-      "$versionUrl/studies",
-    );
-  }
-
-  static Future<Response> getResponseStatistics(SurveyResponseQuery query) async {
-    return await authClient.get(
-      "$dataUrl/${query.studyKey}/statistics",
-      queryParameters: {
-        if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
-        if (query.hasUntil()) "until": (query.until.toInt() / 1000).round(),
-      },
-    );
-  }
-
-  static Future<Response> getSurveyResponses(SurveyResponseQuery query) async {
-    return await authClient.get(
-      "$dataUrl/${query.studyKey}/responses",
-      queryParameters: {
-        if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
-        if (query.hasUntil()) "until": (query.until.toInt() / 1000).round(),
-        if (query.hasSurveyKey()) "surveyKey": query.surveyKey,
-      },
-    );
   }
 
   static updateAuthentication(String accessToken) {

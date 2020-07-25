@@ -1,4 +1,5 @@
 import 'package:case_manager/api/Api.dart';
+import 'package:case_manager/api/AuthApi.dart';
 import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pb.dart';
 import 'package:case_manager/state/AppState.dart';
@@ -17,7 +18,7 @@ class LoginManager {
     bool success = false;
 
     await Api.callWithParameter<LoginWithEmailMsg>(
-      Api.login,
+      AuthApi.login,
       loginMessage,
       onSuccess: (response) {
         var loginResponse = LoginResponse()..mergeFromProto3Json(response.data);

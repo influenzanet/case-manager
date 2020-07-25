@@ -1,4 +1,5 @@
 import 'package:case_manager/api/Api.dart';
+import 'package:case_manager/api/StudyApi.dart';
 import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
 import 'package:case_manager/generated/api/study_service/study.pb.dart';
 import 'package:case_manager/logic/FileSaver.dart';
@@ -6,7 +7,6 @@ import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:universal_html/html.dart' as html;
 
 class SubmissionsPage extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
 
   void _fetchStudies() async {
     await Api.callWithoutParameter(
-      Api.getAllStudies,
+      StudyApi.getAllStudies,
       onSuccess: (response) {
         var studyResponse = Studies()..mergeFromProto3Json(response.data);
 
@@ -57,7 +57,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     var query = SurveyResponseQuery()..studyKey = studyKey;
 
     await Api.callWithParameter<SurveyResponseQuery>(
-      Api.getResponseStatistics,
+      StudyApi.getResponseStatistics,
       query,
       onSuccess: (response) {
         var statisticsResponse = StudyResponseStatistics()..mergeFromProto3Json(response.data);
@@ -78,7 +78,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     }
 
     await Api.callWithParameter<SurveyResponseQuery>(
-      Api.getSurveyResponses,
+      StudyApi.getSurveyResponses,
       query,
       onSuccess: (response) {
         FileSaver.saveTextFile("responses.json", json.encode(response.data));
