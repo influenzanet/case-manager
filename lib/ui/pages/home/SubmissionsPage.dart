@@ -34,64 +34,68 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   }
 
   void _fetchStudies() async {
-    try {
-      var response = await Api.getAllStudies();
-      if (response.statusCode != 200) return;
-      var studyResponse = Studies()..mergeFromProto3Json(response.data);
+    await Api.callWithoutParameter(
+      Api.getAllStudies,
+      onSuccess: (response) {
+        var studyResponse = Studies()..mergeFromProto3Json(response.data);
 
-      setState(() {
-        _studies.clear();
-        _studies.addAll(studyResponse.studies);
-        _studyResponseCounts.clear();
-        _selectedSurveyKey = _selectableSurveyKeys[0];
-        _selectedStudyKey = _studies != null && _studies.isNotEmpty ? _studies[0].key : "";
-      });
+        setState(() {
+          _studies.clear();
+          _studies.addAll(studyResponse.studies);
+          _studyResponseCounts.clear();
+          _selectedSurveyKey = _selectableSurveyKeys[0];
+          _selectedStudyKey = _studies != null && _studies.isNotEmpty ? _studies[0].key : "";
+        });
 
-      if (_selectedStudyKey != null) _fetchResponseStatistics(_selectedStudyKey);
-    } catch (e) {
-      print(e);
-    }
+        if (_selectedStudyKey != null) _fetchResponseStatistics(_selectedStudyKey);
+      },
+    );
   }
 
   void _fetchResponseStatistics(String studyKey) async {
-    try {
-      var response = await Api.getResponseStatistics(studyKey);
-      if (response.statusCode != 200) return;
-      var statisticsResponse = StudyResponseStatistics()..mergeFromProto3Json(response.data);
+    var query = SurveyResponseQuery()..studyKey = studyKey;
 
-      setState(() {
-        _studyResponseCounts.clear();
-        _studyResponseCounts.addAll(statisticsResponse.surveyResponseCounts);
-        _selectedSurveyKey = _selectableSurveyKeys[0];
-      });
-    } catch (e) {
-      print(e);
-    }
+    await Api.callWithParameter<SurveyResponseQuery>(
+      Api.getResponseStatistics,
+      query,
+      onSuccess: (response) {
+        var statisticsResponse = StudyResponseStatistics()..mergeFromProto3Json(response.data);
+
+        setState(() {
+          _studyResponseCounts.clear();
+          _studyResponseCounts.addAll(statisticsResponse.surveyResponseCounts);
+          _selectedSurveyKey = _selectableSurveyKeys[0];
+        });
+      },
+    );
   }
 
   void _downloadResponses() async {
-    try {
-      String surveyKey = _selectedSurveyKey == ALL_SURVEYS_KEY ? null : _selectedSurveyKey;
-      var response = await Api.getSurveyResponses(_selectedStudyKey, surveyKey: surveyKey);
-      if (response.statusCode != 200) return;
-
-      // prepare
-      final bytes = utf8.encode(json.encode(response.data));
-      final blob = html.Blob([bytes]);
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      final anchor = html.document.createElement('a') as html.AnchorElement
-        ..href = url
-        ..style.display = 'none'
-        ..download = 'responses.json';
-      html.document.body.children.add(anchor);
-      // download
-      anchor.click();
-      // cleanup
-      html.document.body.children.remove(anchor);
-      html.Url.revokeObjectUrl(url);
-    } catch (e) {
-      print(e);
+    var query = SurveyResponseQuery()..studyKey = _selectedStudyKey;
+    if (_selectedSurveyKey != ALL_SURVEYS_KEY) {
+      query.surveyKey = _selectedSurveyKey;
     }
+
+    await Api.callWithParameter<SurveyResponseQuery>(
+      Api.getSurveyResponses,
+      query,
+      onSuccess: (response) {
+        // prepare
+        final bytes = utf8.encode(json.encode(response.data));
+        final blob = html.Blob([bytes]);
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        final anchor = html.document.createElement('a') as html.AnchorElement
+          ..href = url
+          ..style.display = 'none'
+          ..download = 'responses.json';
+        html.document.body.children.add(anchor);
+        // download
+        anchor.click();
+        // cleanup
+        html.document.body.children.remove(anchor);
+        html.Url.revokeObjectUrl(url);
+      },
+    );
   }
 
   Int64 _getCurrentResponseCount() {

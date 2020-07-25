@@ -1,52 +1,114 @@
 import 'dart:io';
 
 import 'package:case_manager/config/Config.dart';
+import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
+import 'package:case_manager/generated/api/user_management/user-management-service.pbserver.dart';
 import 'package:dio/dio.dart';
 
+typedef ApiFunctionWithParameter<T> = Future<Response> Function(T message);
+typedef ApiFunctionWithoutParameter = Future<Response> Function();
+
 class Api {
-  static const String apiUrl = "/v1";
-  static const String authApiUrl = "$apiUrl/auth";
-  static const String dataApiUrl = "$apiUrl/data";
+  static const String versionUrl = "/v1";
+  static const String authUrl = "$versionUrl/auth";
+  static const String dataUrl = "$versionUrl/data";
 
-  static final _client = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
-  static final _authClient = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
+  static final client = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
+  static final authClient = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
 
-  static Future<Response> login(String email, String password) async {
-    return await _client.post(
-      "$authApiUrl/login-with-email",
-      data: {"email": email, "password": password, "instanceId": Config.instanceId},
+  static Future callWithoutParameter(
+    ApiFunctionWithoutParameter apiFunction, {
+    Function(Response) onSuccess,
+    Function(Response) onServerError,
+    Function(dynamic) onException,
+  }) async {
+    return _call<dynamic>(
+      apiFunctionWithoutParameter: apiFunction,
+      onSuccess: onSuccess,
+      onServerError: onServerError,
+      onException: onException,
     );
+  }
+
+  static Future callWithParameter<T>(
+    ApiFunctionWithParameter<T> apiFunction,
+    T message, {
+    Function(Response) onSuccess,
+    Function(Response) onServerError,
+    Function(dynamic) onException,
+  }) async {
+    return _call<T>(
+      apiFunctionWithParameter: apiFunction,
+      message: message,
+      onSuccess: onSuccess,
+      onServerError: onServerError,
+      onException: onException,
+    );
+  }
+
+  static Future _call<T>({
+    ApiFunctionWithoutParameter apiFunctionWithoutParameter,
+    ApiFunctionWithParameter<T> apiFunctionWithParameter,
+    T message,
+    Function(Response) onSuccess,
+    Function(Response) onServerError,
+    Function(dynamic) onException,
+  }) async {
+    try {
+      Response response;
+
+      if (apiFunctionWithParameter != null && message != null) {
+        response = await apiFunctionWithParameter(message);
+      } else if (apiFunctionWithoutParameter != null) {
+        response = await apiFunctionWithoutParameter();
+      } else {
+        return;
+      }
+
+      if (response.statusCode == 200) {
+        if (onSuccess != null) onSuccess(response);
+      } else {
+        print("${response.statusCode}: ${response.statusMessage}");
+        if (onServerError != null) onServerError(response);
+      }
+    } catch (e) {
+      print(e);
+      if (onException != null) onException(e);
+    }
+  }
+
+  static Future<Response> login(LoginWithEmailMsg loginMessage) async {
+    return await client.post("$authUrl/login-with-email", data: loginMessage.toProto3Json());
   }
 
   static Future<Response> getAllStudies() async {
-    return await _authClient.get(
-      "$apiUrl/studies",
+    return await authClient.get(
+      "$versionUrl/studies",
     );
   }
 
-  static Future<Response> getResponseStatistics(String studyKey, {int startTimestamp, int endTimestamp}) async {
-    return await _authClient.get(
-      "$dataApiUrl/$studyKey/statistics",
+  static Future<Response> getResponseStatistics(SurveyResponseQuery query) async {
+    return await authClient.get(
+      "$dataUrl/${query.studyKey}/statistics",
       queryParameters: {
-        if (startTimestamp != null) "from": (startTimestamp / 1000).round(),
-        if (endTimestamp != null) "until": (endTimestamp / 1000).round(),
+        if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
+        if (query.hasUntil()) "until": (query.until.toInt() / 1000).round(),
       },
     );
   }
 
-  static Future<Response> getSurveyResponses(String studyKey,
-      {int startTimeStamp, int endTimeStamp, String surveyKey}) async {
-    return await _authClient.get(
-      "$dataApiUrl/$studyKey/responses",
+  static Future<Response> getSurveyResponses(SurveyResponseQuery query) async {
+    return await authClient.get(
+      "$dataUrl/${query.studyKey}/responses",
       queryParameters: {
-        if (startTimeStamp != null) "from": (startTimeStamp / 1000).round(),
-        if (endTimeStamp != null) "until": (endTimeStamp / 1000).round(),
-        if (surveyKey != null) "surveyKey": surveyKey,
+        if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
+        if (query.hasUntil()) "until": (query.until.toInt() / 1000).round(),
+        if (query.hasSurveyKey()) "surveyKey": query.surveyKey,
       },
     );
   }
 
   static updateAuthentication(String accessToken) {
-    _authClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
+    authClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
   }
 }
