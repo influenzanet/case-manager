@@ -10,11 +10,11 @@ class Storage {
     _instance = await SharedPreferences.getInstance();
   }
 
-  static Map<String, dynamic> getAppState() {
-    return json.decode(_instance.getString(APP_STATE_KEY) ?? "{}");
+  static Map<String, dynamic> getState(String key) {
+    return json.decode(_instance.getString(key) ?? "{}");
   }
 
-  static void setAppState(Map<String, dynamic> state) {
-    _instance.setString(APP_STATE_KEY, json.encode(state));
+  static void setState(String key, Map<String, dynamic> state) {
+    _instance.setString(key, json.encode(state));
   }
 }

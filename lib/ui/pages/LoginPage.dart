@@ -1,5 +1,7 @@
 import 'package:case_manager/logic/LoginManager.dart';
+import 'package:case_manager/state/app/AppNotifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../common/routes/AppRoutes.dart';
 import '../common/widgets/scaffolds/ThemedScaffold.dart';
@@ -52,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: AutofillGroup(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextFormField(
                           controller: emailEditingController,
@@ -80,7 +83,21 @@ class _LoginPageState extends State<LoginPage> {
                             return (value.isEmpty) ? "Please enter your password" : null;
                           },
                         ),
-                        Container(height: 32),
+                        Container(height: 16),
+                        Consumer<AppNotifier>(
+                          builder: (context, state) {
+                            return CheckboxListTile(
+                              title: Text("Remember Me"),
+                              value: state.persistState,
+                              onChanged: (value) {
+                                state.persistState = value;
+                              },
+                              controlAffinity: ListTileControlAffinity.leading,
+                              contentPadding: EdgeInsets.zero,
+                            );
+                          },
+                        ),
+                        Container(height: 16),
                         FlatButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {

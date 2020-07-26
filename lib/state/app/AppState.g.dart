@@ -8,17 +8,19 @@ part of 'AppState.dart';
 
 AppState _$AppStateFromJson(Map<String, dynamic> json) {
   return AppState(
-    json['userId'] as String,
-    json['preferredLanguage'] as String,
-    json['accessToken'] as String,
-    json['refreshToken'] as String,
-    json['expiresAt'] as int,
+    json['userId'] as String ?? '',
+    json['preferredLanguage'] as String ?? 'en',
+    json['persistState'] as bool ?? false,
+    json['accessToken'] as String ?? '',
+    json['refreshToken'] as String ?? '',
+    json['expiresAt'] as int ?? 0,
   );
 }
 
 Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
       'userId': instance.userId,
       'preferredLanguage': instance.preferredLanguage,
+      'persistState': instance.persistState,
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
       'expiresAt': instance.expiresAt,

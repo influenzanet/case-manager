@@ -47,11 +47,11 @@ class Api {
           print(e.toString());
           _resetAuthentication();
           Modular.to.pushNamed(AppRoutes.login);
+          dioInstance.interceptors.requestLock.unlock();
           return dioInstance.reject("Error during token refresh.");
         }
 
         dioInstance.interceptors.requestLock.unlock();
-
         return options;
       },
     );
