@@ -11,8 +11,11 @@ class Api {
   static const String authUrl = "$versionUrl/auth";
   static const String dataUrl = "$versionUrl/data";
 
-  static final client = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
-  static final authClient = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
+  static final managementClient = Dio(BaseOptions(baseUrl: Config.managementApiBaseUrl));
+  static final managementAuthClient = Dio(BaseOptions(baseUrl: Config.managementApiBaseUrl));
+
+  static final participantClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
+  static final participantAuthClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
 
   static Future callWithoutParameter(
     ApiFunctionWithoutParameter apiFunction, {
@@ -76,6 +79,7 @@ class Api {
   }
 
   static updateAuthentication(String accessToken) {
-    authClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
+    managementAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
+    participantAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
   }
 }
