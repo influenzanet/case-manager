@@ -25,54 +25,39 @@ class Api {
   static final participantAuthClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
 
   static initialize() {
-    managementAuthClient.interceptors.add(InterceptorsWrapper(
-      onRequest: (RequestOptions options) async {
-        if (options.path == AuthApi.RENEW_TOKEN_URL) {
-          return options;
-        }
-
-        managementAuthClient.interceptors.requestLock.lock();
-        try {
-          var newAccessToken = await getNewAccessToken();
-          if (newAccessToken != null) {
-            options.headers[HttpHeaders.authorizationHeader] = "Bearer $newAccessToken";
-          }
-        } catch (e) {
-          print(e.toString());
-          resetAuthentication();
-          Modular.to.pushNamed(AppRoutes.login);
-          return participantAuthClient.reject("Error during token refresh.");
-        }
-        managementAuthClient.interceptors.requestLock.unlock();
-        return options;
-      },
-    ));
-
-    participantAuthClient.interceptors.add(InterceptorsWrapper(
-      onRequest: (RequestOptions options) async {
-        if (options.path == AuthApi.RENEW_TOKEN_URL) {
-          return options;
-        }
-
-        participantAuthClient.interceptors.requestLock.lock();
-        try {
-          var newAccessToken = await getNewAccessToken();
-          if (newAccessToken != null) {
-            options.headers[HttpHeaders.authorizationHeader] = "Bearer $newAccessToken";
-          }
-        } catch (e) {
-          print(e.toString());
-          resetAuthentication();
-          Modular.to.pushNamed(AppRoutes.login);
-          return participantAuthClient.reject("Error during token refresh.");
-        }
-        participantAuthClient.interceptors.requestLock.unlock();
-        return options;
-      },
-    ));
+    managementAuthClient.interceptors.add(_createRenewTokensInterceptors(managementAuthClient));
+    participantAuthClient.interceptors.add(_createRenewTokensInterceptors(participantAuthClient));
   }
 
-  static Future<String> getNewAccessToken() async {
+  static InterceptorsWrapper _createRenewTokensInterceptors(Dio dioInstance) {
+    return InterceptorsWrapper(
+      onRequest: (RequestOptions options) async {
+        if (options.path == AuthApi.RENEW_TOKEN_URL) {
+          return options;
+        }
+
+        dioInstance.interceptors.requestLock.lock();
+
+        try {
+          var newAccessToken = await _getNewAccessToken();
+          if (newAccessToken != null) {
+            options.headers[HttpHeaders.authorizationHeader] = "Bearer $newAccessToken";
+          }
+        } catch (e) {
+          print(e.toString());
+          _resetAuthentication();
+          Modular.to.pushNamed(AppRoutes.login);
+          return dioInstance.reject("Error during token refresh.");
+        }
+
+        dioInstance.interceptors.requestLock.unlock();
+
+        return options;
+      },
+    );
+  }
+
+  static Future<String> _getNewAccessToken() async {
     final _appState = Modular.get<AppNotifier>();
 
     if (_appState.refreshToken != null && _appState.refreshToken.length > 0) {
@@ -160,7 +145,7 @@ class Api {
     participantAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
   }
 
-  static resetAuthentication() {
+  static _resetAuthentication() {
     updateAuthentication("");
     Modular.get<AppNotifier>().reset();
   }
