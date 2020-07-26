@@ -1,7 +1,7 @@
 import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
 import 'package:dio/dio.dart';
 
-import 'Api.dart';
+import '../Api.dart';
 
 class StudyApi {
   static Future<Response> getAllStudies() async {

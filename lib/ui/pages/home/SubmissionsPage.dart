@@ -1,5 +1,5 @@
 import 'package:case_manager/api/Api.dart';
-import 'package:case_manager/api/StudyApi.dart';
+import 'package:case_manager/api/functions/StudyApi.dart';
 import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
 import 'package:case_manager/generated/api/study_service/study.pb.dart';
 import 'package:case_manager/logic/FileSaver.dart';

@@ -1,8 +1,8 @@
 import 'package:case_manager/api/Api.dart';
-import 'package:case_manager/api/AuthApi.dart';
+import 'package:case_manager/api/functions/AuthApi.dart';
 import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pb.dart';
-import 'package:case_manager/state/AppProvider.dart';
+import 'package:case_manager/state/App/AppProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

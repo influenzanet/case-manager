@@ -13,6 +13,11 @@ class AppProvider extends BaseProvider {
   String get refreshToken => _state.refreshToken;
   int get expiresAt => _state.expiresAt;
 
+  set preferredLanguage(String value) {
+    _state.preferredLanguage = value;
+    update();
+  }
+
   AppProvider() {
     var savedState = Storage.getAppState();
     if (savedState == null) {
@@ -26,11 +31,6 @@ class AppProvider extends BaseProvider {
   @override
   save() {
     Storage.setAppState(_state.toJson());
-  }
-
-  set preferredLanguage(String value) {
-    _state.preferredLanguage = value;
-    update();
   }
 
   setUser(String userId, String preferredLanguage) {

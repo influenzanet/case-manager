@@ -1,4 +1,4 @@
-import 'package:case_manager/state/AppProvider.dart';
+import 'package:case_manager/state/App/AppProvider.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
