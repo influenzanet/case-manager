@@ -1,4 +1,5 @@
-import 'package:case_manager/state/AppState.dart';
+import 'package:case_manager/state/AppProvider.dart';
+import 'package:case_manager/state/Storage.dart';
 import 'package:case_manager/ui/pages/LoginPage.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/HomeNavigator.dart';
@@ -7,19 +8,20 @@ import 'package:provider/provider.dart';
 
 import 'config/Config.dart';
 
-void main() {
+void main() async {
+  await initialize();
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AppState(),
+      create: (context) => AppProvider(),
       child: MyApp(),
     ),
   );
-
-  initialize();
 }
 
-void initialize() async {
+Future initialize() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Config.initialize();
+  await Storage.initialize();
 }
 
 class MyApp extends StatefulWidget {

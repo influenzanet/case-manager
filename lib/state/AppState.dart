@@ -1,36 +1,17 @@
-import 'package:case_manager/api/Api.dart';
-import 'package:case_manager/state/BaseState.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class AppState extends BaseState {
-  String _userId;
-  String _preferredLanguage;
+part "AppState.g.dart";
 
-  String _accessToken;
-  String _refreshToken;
-  int _expiresAt;
+@JsonSerializable(explicitToJson: true)
+class AppState {
+  String userId;
+  String preferredLanguage;
 
-  String get userId => _userId;
-  String get preferredLanguage => _preferredLanguage;
-  String get accessToken => _accessToken;
-  String get refreshToken => _refreshToken;
-  int get expiresAt => _expiresAt;
+  String accessToken;
+  String refreshToken;
+  int expiresAt;
 
-  set preferredLanguage(String value) {
-    _preferredLanguage = value;
-    update();
-  }
-
-  setUser(String userId, String preferredLanguage) {
-    _userId = userId;
-    _preferredLanguage = preferredLanguage;
-    update();
-  }
-
-  setTokens(String accessToken, String refreshToken, int expiresIn) {
-    _accessToken = accessToken;
-    _refreshToken = refreshToken;
-    _expiresAt = DateTime.now().millisecondsSinceEpoch + expiresIn * 60000;
-    Api.updateAuthentication(accessToken);
-    update();
-  }
+  AppState(this.userId, this.preferredLanguage, this.accessToken, this.refreshToken, this.expiresAt);
+  factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
+  Map<String, dynamic> toJson() => _$AppStateToJson(this);
 }
