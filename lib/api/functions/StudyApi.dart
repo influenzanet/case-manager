@@ -4,14 +4,14 @@ import 'package:dio/dio.dart';
 import '../Api.dart';
 
 class StudyApi {
-  static Future<Response> getAllStudies() async {
-    return await Api.authClient.get(
+  static Future<Response> getAllStudies() {
+    return Api.managementAuthClient.get(
       "${Api.versionUrl}/studies",
     );
   }
 
-  static Future<Response> getResponseStatistics(SurveyResponseQuery query) async {
-    return await Api.authClient.get(
+  static Future<Response> getResponseStatistics(SurveyResponseQuery query) {
+    return Api.managementAuthClient.get(
       "${Api.dataUrl}/${query.studyKey}/statistics",
       queryParameters: {
         if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
@@ -20,8 +20,8 @@ class StudyApi {
     );
   }
 
-  static Future<Response> getSurveyResponses(SurveyResponseQuery query) async {
-    return await Api.authClient.get(
+  static Future<Response> getSurveyResponses(SurveyResponseQuery query) {
+    return Api.managementAuthClient.get(
       "${Api.dataUrl}/${query.studyKey}/responses",
       queryParameters: {
         if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),

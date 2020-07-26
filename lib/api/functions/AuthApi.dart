@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import '../Api.dart';
 
 class AuthApi {
-  static Future<Response> login(LoginWithEmailMsg loginMessage) async {
-    return await Api.client.post("${Api.authUrl}/login-with-email", data: loginMessage.toProto3Json());
+  static Future<Response> login(LoginWithEmailMsg loginMessage) {
+    return Api.managementClient.post("${Api.authUrl}/login-with-email", data: loginMessage.toProto3Json());
   }
 }
