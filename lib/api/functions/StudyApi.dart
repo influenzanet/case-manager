@@ -6,13 +6,13 @@ import '../Api.dart';
 class StudyApi {
   static Future<Response> getAllStudies() {
     return Api.managementAuthClient.get(
-      "${Api.versionUrl}/studies",
+      "${Api.VERSION_URL}/studies",
     );
   }
 
   static Future<Response> getResponseStatistics(SurveyResponseQuery query) {
     return Api.managementAuthClient.get(
-      "${Api.dataUrl}/${query.studyKey}/statistics",
+      "${Api.DATA_URL}/${query.studyKey}/statistics",
       queryParameters: {
         if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
         if (query.hasUntil()) "until": (query.until.toInt() / 1000).round(),
@@ -22,7 +22,7 @@ class StudyApi {
 
   static Future<Response> getSurveyResponses(SurveyResponseQuery query) {
     return Api.managementAuthClient.get(
-      "${Api.dataUrl}/${query.studyKey}/responses",
+      "${Api.DATA_URL}/${query.studyKey}/responses",
       queryParameters: {
         if (query.hasFrom()) "from": (query.from.toInt() / 1000).round(),
         if (query.hasUntil()) "until": (query.until.toInt() / 1000).round(),

@@ -21,7 +21,7 @@ class AppNotifier extends BaseNotifier {
   AppNotifier() {
     var savedState = Storage.getAppState();
     if (savedState == null) {
-      _state = AppState("", "", "", "", 0);
+      _setEmptyState();
     } else {
       _state = AppState.fromJson(savedState);
     }
@@ -31,6 +31,16 @@ class AppNotifier extends BaseNotifier {
   @override
   save() {
     Storage.setAppState(_state.toJson());
+  }
+
+  @override
+  reset() {
+    _setEmptyState();
+    Storage.setAppState({});
+  }
+
+  _setEmptyState() {
+    _state = AppState("", "", "", "", 0);
   }
 
   setUser(String userId, String preferredLanguage) {

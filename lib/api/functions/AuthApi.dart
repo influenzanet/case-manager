@@ -5,6 +5,10 @@ import '../Api.dart';
 
 class AuthApi {
   static Future<Response> login(LoginWithEmailMsg loginMessage) {
-    return Api.managementClient.post("${Api.authUrl}/login-with-email", data: loginMessage.toProto3Json());
+    return Api.managementClient.post("${Api.AUTH_URL}/login-with-email", data: loginMessage.toProto3Json());
+  }
+
+  static Future<Response> renewAccessToken(RefreshJWTRequest renewRequest) {
+    return Api.participantAuthClient.post("${Api.AUTH_URL}/renew-token", data: renewRequest.toProto3Json());
   }
 }

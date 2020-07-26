@@ -7,4 +7,6 @@ abstract class BaseNotifier extends ChangeNotifier {
   }
 
   save();
+
+  reset();
 }

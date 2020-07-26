@@ -1,5 +1,6 @@
 import 'package:case_manager/state/App/AppNotifier.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
+import 'package:case_manager/ui/common/routes/HomeRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,6 +17,7 @@ class AppModule extends MainModule {
         Router(AppRoutes.root, child: (_, __) => LoginPage()),
         Router(AppRoutes.login, child: (_, __) => LoginPage()),
         Router(AppRoutes.home, child: (_, __) => SubmissionsPage()),
+        Router(HomeRoutes.submissions, child: (_, __) => SubmissionsPage()),
       ];
 
   @override

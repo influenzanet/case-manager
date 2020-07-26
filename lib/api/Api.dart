@@ -1,15 +1,21 @@
 import 'dart:io';
 
+import 'package:case_manager/api/functions/AuthApi.dart';
 import 'package:case_manager/config/Config.dart';
+import 'package:case_manager/generated/api/user_management/user-management-service.pbserver.dart';
+import 'package:case_manager/state/app/AppNotifier.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 typedef ApiFunctionWithParameter<T> = Future<Response> Function(T message);
 typedef ApiFunctionWithoutParameter = Future<Response> Function();
 
 class Api {
-  static const String versionUrl = "/v1";
-  static const String authUrl = "$versionUrl/auth";
-  static const String dataUrl = "$versionUrl/data";
+  static const String VERSION_URL = "/v1";
+  static const String AUTH_URL = "$VERSION_URL/auth";
+  static const String DATA_URL = "$VERSION_URL/data";
+
+  static const int TOKEN_RENEW_THRESHOLD = 60000;
 
   static final managementClient = Dio(BaseOptions(baseUrl: Config.managementApiBaseUrl));
   static final managementAuthClient = Dio(BaseOptions(baseUrl: Config.managementApiBaseUrl));
@@ -78,8 +84,33 @@ class Api {
     }
   }
 
+  static Future<String> getNewAccessToken() async {
+    var state = Modular.get<AppNotifier>();
+
+    if (state.refreshToken != null && state.refreshToken.length > 0) {
+      if (state.expiresAt < DateTime.now().millisecondsSinceEpoch + TOKEN_RENEW_THRESHOLD) {
+        var request = RefreshJWTRequest()..refreshToken = state.refreshToken;
+        var response = await AuthApi.renewAccessToken(request);
+        if (response.statusCode == 200) {
+          var tokenResponse = TokenResponse()..mergeFromProto3Json(response.data);
+          state.setTokens(tokenResponse.accessToken, tokenResponse.refreshToken, tokenResponse.expiresIn);
+          return tokenResponse.accessToken;
+        }
+      }
+    } else if (state.expiresAt < DateTime.now().millisecondsSinceEpoch) {
+      throw Exception("No valid tokens.");
+    }
+
+    return null;
+  }
+
   static updateAuthentication(String accessToken) {
     managementAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
     participantAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
+  }
+
+  static resetAuthentication() {
+    updateAuthentication("");
+    Modular.get<AppNotifier>().reset();
   }
 }
