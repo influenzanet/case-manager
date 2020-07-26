@@ -4,11 +4,11 @@ import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pb.dart';
 import 'package:case_manager/state/AppProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginManager {
   static Future<bool> login(BuildContext context, String email, String password) async {
-    final state = Provider.of<AppProvider>(context, listen: false);
+    final state = Modular.get<AppProvider>();
 
     var loginMessage = LoginWithEmailMsg()
       ..email = email
@@ -39,7 +39,7 @@ class LoginManager {
   }
 
   static bool hasAccessToken(BuildContext context) {
-    final state = Provider.of<AppProvider>(context, listen: false);
+    final state = Modular.get<AppProvider>();
     return state.accessToken != null && state.accessToken.length > 0;
   }
 }
