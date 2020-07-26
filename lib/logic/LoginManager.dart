@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginManager {
-  static Future<bool> login(BuildContext context, String email, String password) async {
+  static Future<bool> login(String email, String password) async {
     final state = Modular.get<AppProvider>();
 
     var loginMessage = LoginWithEmailMsg()
@@ -38,7 +38,7 @@ class LoginManager {
     return false;
   }
 
-  static bool hasAccessToken(BuildContext context) {
+  static bool hasAccessToken() {
     final state = Modular.get<AppProvider>();
     return state.accessToken != null && state.accessToken.length > 0;
   }

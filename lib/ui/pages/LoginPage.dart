@@ -85,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
                               if (await LoginManager.login(
-                                context,
                                 emailEditingController.text,
                                 passwordEditingController.text,
                               )) {
