@@ -4,6 +4,7 @@ import 'package:case_manager/api/functions/AuthApi.dart';
 import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pbserver.dart';
 import 'package:case_manager/state/app/AppNotifier.dart';
+import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -22,6 +23,76 @@ class Api {
 
   static final participantClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
   static final participantAuthClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
+
+  static initialize() {
+    managementAuthClient.interceptors.add(InterceptorsWrapper(
+      onRequest: (RequestOptions options) async {
+        if (options.path == AuthApi.RENEW_TOKEN_URL) {
+          return options;
+        }
+
+        managementAuthClient.interceptors.requestLock.lock();
+        try {
+          var newAccessToken = await getNewAccessToken();
+          if (newAccessToken != null) {
+            options.headers[HttpHeaders.authorizationHeader] = "Bearer $newAccessToken";
+          }
+        } catch (e) {
+          print(e.toString());
+          resetAuthentication();
+          Modular.to.pushNamed(AppRoutes.login);
+          return participantAuthClient.reject("Error during token refresh.");
+        }
+        managementAuthClient.interceptors.requestLock.unlock();
+        return options;
+      },
+    ));
+
+    participantAuthClient.interceptors.add(InterceptorsWrapper(
+      onRequest: (RequestOptions options) async {
+        if (options.path == AuthApi.RENEW_TOKEN_URL) {
+          return options;
+        }
+
+        participantAuthClient.interceptors.requestLock.lock();
+        try {
+          var newAccessToken = await getNewAccessToken();
+          if (newAccessToken != null) {
+            options.headers[HttpHeaders.authorizationHeader] = "Bearer $newAccessToken";
+          }
+        } catch (e) {
+          print(e.toString());
+          resetAuthentication();
+          Modular.to.pushNamed(AppRoutes.login);
+          return participantAuthClient.reject("Error during token refresh.");
+        }
+        participantAuthClient.interceptors.requestLock.unlock();
+        return options;
+      },
+    ));
+  }
+
+  static Future<String> getNewAccessToken() async {
+    final _appState = Modular.get<AppNotifier>();
+
+    if (_appState.refreshToken != null && _appState.refreshToken.length > 0) {
+      if (_appState.expiresAt < DateTime.now().millisecondsSinceEpoch + TOKEN_RENEW_THRESHOLD) {
+        var request = RefreshJWTRequest()..refreshToken = _appState.refreshToken;
+        var response = await AuthApi.renewAccessToken(request);
+        if (response.statusCode == 200) {
+          var tokenResponse = TokenResponse()..mergeFromProto3Json(response.data);
+          _appState.setTokens(tokenResponse.accessToken, tokenResponse.refreshToken, tokenResponse.expiresIn);
+          return tokenResponse.accessToken;
+        } else {
+          throw Exception("${response.statusCode}: ${response.statusMessage}");
+        }
+      }
+    } else if (_appState.expiresAt < DateTime.now().millisecondsSinceEpoch) {
+      throw Exception("No valid tokens.");
+    }
+
+    return null;
+  }
 
   static Future callWithoutParameter(
     ApiFunctionWithoutParameter apiFunction, {
@@ -82,26 +153,6 @@ class Api {
       print(e);
       if (onException != null) onException(e);
     }
-  }
-
-  static Future<String> getNewAccessToken() async {
-    var state = Modular.get<AppNotifier>();
-
-    if (state.refreshToken != null && state.refreshToken.length > 0) {
-      if (state.expiresAt < DateTime.now().millisecondsSinceEpoch + TOKEN_RENEW_THRESHOLD) {
-        var request = RefreshJWTRequest()..refreshToken = state.refreshToken;
-        var response = await AuthApi.renewAccessToken(request);
-        if (response.statusCode == 200) {
-          var tokenResponse = TokenResponse()..mergeFromProto3Json(response.data);
-          state.setTokens(tokenResponse.accessToken, tokenResponse.refreshToken, tokenResponse.expiresIn);
-          return tokenResponse.accessToken;
-        }
-      }
-    } else if (state.expiresAt < DateTime.now().millisecondsSinceEpoch) {
-      throw Exception("No valid tokens.");
-    }
-
-    return null;
   }
 
   static updateAuthentication(String accessToken) {

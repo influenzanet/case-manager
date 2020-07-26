@@ -2,14 +2,12 @@ import 'package:case_manager/api/Api.dart';
 import 'package:case_manager/api/functions/AuthApi.dart';
 import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pb.dart';
-import 'package:case_manager/state/App/AppNotifier.dart';
-import 'package:flutter/material.dart';
+import 'package:case_manager/state/app/AppNotifier.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginManager {
   static Future<bool> login(String email, String password) async {
     final state = Modular.get<AppNotifier>();
-
     var loginMessage = LoginWithEmailMsg()
       ..email = email
       ..password = password
@@ -34,7 +32,7 @@ class LoginManager {
     return success;
   }
 
-  static Future<bool> logout(BuildContext context) async {
+  static Future<bool> logout() async {
     return false;
   }
 

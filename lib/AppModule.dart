@@ -1,4 +1,4 @@
-import 'package:case_manager/state/App/AppNotifier.dart';
+import 'package:case_manager/state/app/AppNotifier.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/common/routes/HomeRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';

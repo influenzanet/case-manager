@@ -3,6 +3,7 @@ import 'package:case_manager/AppModule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'api/Api.dart';
 import 'config/Config.dart';
 
 void main() async {
@@ -14,4 +15,5 @@ Future initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initialize();
   await Storage.initialize();
+  await Api.initialize();
 }
