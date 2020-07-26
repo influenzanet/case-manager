@@ -1,7 +1,5 @@
-import 'HomeRoutes.dart';
-
 class AppRoutes {
   static const String root = "/";
   static const String login = "/login";
-  static const String home = "${HomeRoutes.root}";
+  static const String home = "/home";
 }

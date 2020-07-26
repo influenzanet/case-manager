@@ -1,4 +1,4 @@
 class HomeRoutes {
-  static const String root = "/home";
-  static const String submissions = "$root/submissions";
+  static const String root = "/";
+  static const String submissions = "/submissions";
 }
