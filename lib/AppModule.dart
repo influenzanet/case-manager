@@ -1,4 +1,4 @@
-import 'package:case_manager/state/App/AppProvider.dart';
+import 'package:case_manager/state/App/AppNotifier.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'ui/pages/LoginPage.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        Bind((_) => AppProvider(), lazy: false),
+        Bind((_) => AppNotifier(), lazy: false),
       ];
 
   @override

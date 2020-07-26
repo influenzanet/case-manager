@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class BaseProvider extends ChangeNotifier {
+abstract class BaseNotifier extends ChangeNotifier {
   update() {
     notifyListeners();
     save();

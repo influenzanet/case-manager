@@ -1,10 +1,10 @@
 import 'package:case_manager/api/Api.dart';
-import 'package:case_manager/state/BaseProvider.dart';
+import 'package:case_manager/state/BaseNotifier.dart';
 import 'package:case_manager/state/Storage.dart';
 
 import 'AppState.dart';
 
-class AppProvider extends BaseProvider {
+class AppNotifier extends BaseNotifier {
   AppState _state;
 
   String get userId => _state.userId;
@@ -18,7 +18,7 @@ class AppProvider extends BaseProvider {
     update();
   }
 
-  AppProvider() {
+  AppNotifier() {
     var savedState = Storage.getAppState();
     if (savedState == null) {
       _state = AppState("", "", "", "", 0);
