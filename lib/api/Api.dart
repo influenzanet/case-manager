@@ -45,8 +45,7 @@ class Api {
           }
         } catch (e) {
           print(e.toString());
-          _resetAuthentication();
-          Modular.to.pushNamed(AppRoutes.login);
+          resetAuthentication();
           dioInstance.interceptors.requestLock.unlock();
           return dioInstance.reject("Error during token refresh.");
         }
@@ -145,8 +144,9 @@ class Api {
     participantAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
   }
 
-  static _resetAuthentication() {
+  static resetAuthentication() {
     updateAuthentication("");
     Modular.get<AppNotifier>().reset();
+    Modular.to.pushReplacementNamed(AppRoutes.login);
   }
 }

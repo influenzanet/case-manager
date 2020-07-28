@@ -33,7 +33,8 @@ class LoginManager {
   }
 
   static Future<bool> logout() async {
-    return false;
+    Api.resetAuthentication();
+    return true;
   }
 
   static bool hasAccessToken() {
