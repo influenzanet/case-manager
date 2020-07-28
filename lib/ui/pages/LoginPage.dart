@@ -1,5 +1,6 @@
 import 'package:case_manager/logic/LoginManager.dart';
 import 'package:case_manager/state/app/AppNotifier.dart';
+import 'package:case_manager/ui/common/widgets/buttons/PrimaryFlatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -98,7 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         Container(height: 16),
-                        FlatButton(
+                        PrimaryFlatButton(
+                          text: "Login",
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
                               if (await LoginManager.login(
@@ -109,12 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             }
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("Login", style: theme.primaryTextTheme.button),
-                          ),
-                          color: theme.primaryColor,
-                        )
+                        ),
                       ],
                     ),
                   ),

@@ -3,6 +3,7 @@ import 'package:case_manager/api/functions/StudyApi.dart';
 import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
 import 'package:case_manager/generated/api/study_service/study.pb.dart';
 import 'package:case_manager/logic/FileSaver.dart';
+import 'package:case_manager/ui/common/widgets/buttons/PrimaryFlatButton.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
@@ -101,63 +102,67 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     ThemeData theme = Theme.of(context);
     return DrawerScaffold(
       "Submissions",
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              if (_studies.length > 0)
-                DropdownButton(
-                  value: _selectedStudyKey,
-                  items: _studies
-                      .map<DropdownMenuItem<String>>(
-                          (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
-                      .toList(),
-                  onChanged: (String newStudyKey) => {
-                    setState(() {
-                      _selectedStudyKey = newStudyKey;
-                      _fetchResponseStatistics(_selectedStudyKey);
-                    })
-                  },
+      Container(
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(height: 20),
+            if (_studies.length > 0)
+              DropdownButtonFormField(
+                value: _selectedStudyKey,
+                items: _studies
+                    .map<DropdownMenuItem<String>>(
+                        (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
+                    .toList(),
+                onChanged: (String newStudyKey) => {
+                  setState(() {
+                    _selectedStudyKey = newStudyKey;
+                    _fetchResponseStatistics(_selectedStudyKey);
+                  })
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Study",
                 ),
-              if (_studyResponseCounts.isNotEmpty)
-                DropdownButton(
-                  value: _selectedSurveyKey,
-                  items: _selectableSurveyKeys
-                      .map<DropdownMenuItem<String>>(
-                          (String survey) => DropdownMenuItem<String>(value: survey, child: Text(survey)))
-                      .toList(),
-                  onChanged: (String newSurveyKey) => {
-                    setState(() {
-                      _selectedSurveyKey = newSurveyKey;
-                    })
-                  },
-                ),
-            ],
-          ),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    _getCurrentResponseCount().toString(),
-                    style: theme.textTheme.headline5,
-                  ),
-                  Text(
-                    "Responses in Selected Timeframe",
-                    style: theme.textTheme.subtitle1,
-                  ),
-                  FlatButton(
-                    child: Text("Download Responses"),
-                    onPressed: _downloadResponses,
-                  ),
-                ],
               ),
-            ],
-          ),
-        ],
+            Container(height: 20),
+            if (_studyResponseCounts.isNotEmpty)
+              DropdownButtonFormField(
+                value: _selectedSurveyKey,
+                items: _selectableSurveyKeys
+                    .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
+                        value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
+                    .toList(),
+                onChanged: (String newSurveyKey) => {
+                  setState(() {
+                    _selectedSurveyKey = newSurveyKey;
+                  })
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Survey",
+                ),
+              ),
+            Container(height: 20),
+            Text(
+              _getCurrentResponseCount().toString(),
+              style: theme.textTheme.headline5,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Responses in Selected Timeframe",
+              style: theme.textTheme.subtitle1,
+              textAlign: TextAlign.center,
+            ),
+            Container(height: 10),
+            PrimaryFlatButton(
+              text: "Download Responses",
+              onPressed: _downloadResponses,
+            ),
+          ],
+        ),
       ),
     );
   }
