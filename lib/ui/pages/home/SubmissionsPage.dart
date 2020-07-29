@@ -17,7 +17,7 @@ class SubmissionsPage extends StatefulWidget {
 }
 
 class _SubmissionsPageState extends State<SubmissionsPage> {
-  static const String ALL_SURVEYS_KEY = "All_Surveys";
+  static const String ALL_SURVEYS_KEY = "All-Surveys";
 
   final _studies = new List<Study>();
   final _studyResponseCounts = new Map<String, Int64>();
@@ -97,7 +97,9 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
       StudyApi.getSurveyResponses,
       query,
       onSuccess: (response) {
-        FileSaver.saveTextFile("responses.json", json.encode(response.data));
+        FileSaver.saveTextFile(
+            "Responses_${_selectedStudyKey}_${_selectedSurveyKey}_${startDate.millisecondsSinceEpoch}_${endDate.millisecondsSinceEpoch}.json",
+            json.encode(response.data));
       },
     );
   }
