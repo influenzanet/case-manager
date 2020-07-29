@@ -6,7 +6,7 @@
 		{
 			"label": "Run using SKIA (Release)",
 			"type": "shell",
-			"command": "flutter run -d chrome --release --dart-define=FLUTTER_WEB_USE_SKIA=true",
+			"command": "flutter run -d chrome --release --dart-define=FLUTTER_WEB_USE_SKIA=true --web-port 3000",
 			"problemMatcher": []
 		},
 		{
