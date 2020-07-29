@@ -9,6 +9,8 @@ import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class SubmissionsPage extends StatefulWidget {
   @override
   _SubmissionsPageState createState() => _SubmissionsPageState();
@@ -21,6 +23,9 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   final _studyResponseCounts = new Map<String, Int64>();
   String _selectedStudyKey = "";
   String _selectedSurveyKey = "";
+
+  DateTime startDate = DateTime(2019);
+  DateTime endDate = DateTime.now().add(Duration(days: 1));
 
   List<String> get _selectableSurveyKeys {
     var keys = new List<String>();
@@ -49,19 +54,26 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
           _selectedStudyKey = _studies != null && _studies.isNotEmpty ? _studies[0].key : "";
         });
 
-        if (_selectedStudyKey != null) _fetchResponseStatistics(_selectedStudyKey);
+        _fetchResponseStatistics();
       },
     );
   }
 
-  void _fetchResponseStatistics(String studyKey) async {
-    var query = SurveyResponseQuery()..studyKey = studyKey;
+  void _fetchResponseStatistics() async {
+    if (_selectedStudyKey == null) return;
+
+    var query = SurveyResponseQuery()
+      ..studyKey = _selectedStudyKey
+      ..from = Int64(startDate.millisecondsSinceEpoch)
+      ..until = Int64(endDate.millisecondsSinceEpoch);
 
     await Api.callWithParameter<SurveyResponseQuery>(
       StudyApi.getResponseStatistics,
       query,
       onSuccess: (response) {
         var statisticsResponse = StudyResponseStatistics()..mergeFromProto3Json(response.data);
+
+        print(statisticsResponse);
 
         setState(() {
           _studyResponseCounts.clear();
@@ -73,7 +85,10 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   }
 
   void _downloadResponses() async {
-    var query = SurveyResponseQuery()..studyKey = _selectedStudyKey;
+    var query = SurveyResponseQuery()
+      ..studyKey = _selectedStudyKey
+      ..from = Int64(startDate.millisecondsSinceEpoch)
+      ..until = Int64(endDate.millisecondsSinceEpoch);
     if (_selectedSurveyKey != ALL_SURVEYS_KEY) {
       query.surveyKey = _selectedSurveyKey;
     }
@@ -95,6 +110,49 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     } else {
       return _studyResponseCounts[_selectedSurveyKey];
     }
+  }
+
+  Widget _datePicker(
+    BuildContext context,
+    String label,
+    DateTime initialDate,
+    DateTime firstDate,
+    DateTime lastDate,
+    Function(DateTime) onNewDate,
+  ) {
+    ThemeData theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: theme.textTheme.caption),
+        Container(height: 4),
+        OutlineButton(
+          padding: EdgeInsets.all(24),
+          child: Text(
+            DateFormat(DateFormat.YEAR_NUM_MONTH_DAY).format(initialDate),
+            style: theme.textTheme.subtitle1,
+          ),
+          onPressed: () async {
+            var newDate = await showDatePicker(
+              context: context,
+              initialDate: initialDate,
+              firstDate: firstDate,
+              lastDate: lastDate,
+              fieldHintText: label,
+              fieldLabelText: label,
+              helpText: label,
+              locale: Locale(Intl.shortLocale(Intl.getCurrentLocale())),
+            );
+
+            if (newDate != null) {
+              onNewDate(newDate);
+            }
+          },
+          borderSide: BorderSide(color: theme.textTheme.caption.color),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        ),
+      ],
+    );
   }
 
   @override
@@ -119,7 +177,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                 onChanged: (String newStudyKey) => {
                   setState(() {
                     _selectedStudyKey = newStudyKey;
-                    _fetchResponseStatistics(_selectedStudyKey);
+                    _fetchResponseStatistics();
                   })
                 },
                 decoration: InputDecoration(
@@ -128,39 +186,73 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                 ),
               ),
             Container(height: 20),
-            if (_studyResponseCounts.isNotEmpty)
-              DropdownButtonFormField(
-                value: _selectedSurveyKey,
-                items: _selectableSurveyKeys
-                    .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
-                        value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
-                    .toList(),
-                onChanged: (String newSurveyKey) => {
-                  setState(() {
-                    _selectedSurveyKey = newSurveyKey;
-                  })
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Survey",
-                ),
-              ),
-            Container(height: 20),
-            Text(
-              _getCurrentResponseCount().toString(),
-              style: theme.textTheme.headline5,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              "Responses in Selected Timeframe",
-              style: theme.textTheme.subtitle1,
-              textAlign: TextAlign.center,
-            ),
-            Container(height: 10),
-            PrimaryFlatButton(
-              text: "Download Responses",
-              onPressed: _downloadResponses,
-            ),
+            (_studyResponseCounts.isNotEmpty)
+                ? Column(
+                    children: [
+                      DropdownButtonFormField(
+                        value: _selectedSurveyKey,
+                        items: _selectableSurveyKeys
+                            .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
+                                value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
+                            .toList(),
+                        onChanged: (String newSurveyKey) => {
+                          setState(() {
+                            _selectedSurveyKey = newSurveyKey;
+                          })
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Survey",
+                        ),
+                      ),
+                      Container(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _datePicker(
+                            context,
+                            "Start Date",
+                            startDate,
+                            DateTime(2019),
+                            DateTime.now().add(Duration(days: 1)),
+                            (newDate) {
+                              setState(() {
+                                startDate = newDate;
+                                _fetchResponseStatistics();
+                              });
+                            },
+                          ),
+                          _datePicker(
+                              context,
+                              "End Date",
+                              endDate,
+                              DateTime.now(),
+                              DateTime.now().add(Duration(days: 1)),
+                              (newDate) => setState(() {
+                                    endDate = newDate;
+                                    _fetchResponseStatistics();
+                                  })),
+                        ],
+                      ),
+                      Container(height: 20),
+                      Text(
+                        _getCurrentResponseCount().toString(),
+                        style: theme.textTheme.headline5,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Responses in Selected Timeframe",
+                        style: theme.textTheme.subtitle1,
+                        textAlign: TextAlign.center,
+                      ),
+                      Container(height: 10),
+                      PrimaryFlatButton(
+                        text: "Download Responses",
+                        onPressed: _downloadResponses,
+                      ),
+                    ],
+                  )
+                : Text("No Responses found", textAlign: TextAlign.center, style: theme.textTheme.headline6),
           ],
         ),
       ),
