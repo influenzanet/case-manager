@@ -9,17 +9,23 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Drawer(
       elevation: 0,
       child: Container(
         color: Theme.of(context).primaryColor,
         child: Column(
           children: [
-            FlatButton(
-              child: Text("Logout"),
-              onPressed: () {
-                LoginManager.logout();
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlineButton(
+                borderSide: BorderSide(color: theme.accentTextTheme.button.color, width: 2),
+                padding: EdgeInsets.all(16),
+                child: Text("Logout", style: theme.accentTextTheme.button),
+                onPressed: () {
+                  LoginManager.logout();
+                },
+              ),
             ),
           ],
         ),
