@@ -24,8 +24,8 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   String _selectedStudyKey = "";
   String _selectedSurveyKey = "";
 
-  DateTime startDate = DateTime(2019);
-  DateTime endDate = DateTime.now().add(Duration(days: 1));
+  DateTime _startDate = DateTime(2019);
+  DateTime _endDate = DateTime.now().add(Duration(days: 1));
 
   List<String> get _selectableSurveyKeys {
     var keys = new List<String>();
@@ -64,8 +64,8 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
 
     var query = SurveyResponseQuery()
       ..studyKey = _selectedStudyKey
-      ..from = Int64(startDate.millisecondsSinceEpoch)
-      ..until = Int64(endDate.millisecondsSinceEpoch);
+      ..from = Int64(_startDate.millisecondsSinceEpoch)
+      ..until = Int64(_endDate.millisecondsSinceEpoch);
 
     await Api.callWithParameter<SurveyResponseQuery>(
       StudyApi.getResponseStatistics,
@@ -85,8 +85,8 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   void _downloadResponses() async {
     var query = SurveyResponseQuery()
       ..studyKey = _selectedStudyKey
-      ..from = Int64(startDate.millisecondsSinceEpoch)
-      ..until = Int64(endDate.millisecondsSinceEpoch);
+      ..from = Int64(_startDate.millisecondsSinceEpoch)
+      ..until = Int64(_endDate.millisecondsSinceEpoch);
     if (_selectedSurveyKey != ALL_SURVEYS_KEY) {
       query.surveyKey = _selectedSurveyKey;
     }
@@ -96,10 +96,34 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
       query,
       onSuccess: (response) {
         FileSaver.saveTextFile(
-            "Responses_${_selectedStudyKey}_${_selectedSurveyKey}_${startDate.millisecondsSinceEpoch}_${endDate.millisecondsSinceEpoch}.json",
+            "Responses_${_selectedStudyKey}_${_selectedSurveyKey}_${_startDate.millisecondsSinceEpoch}_${_endDate.millisecondsSinceEpoch}.json",
             json.encode(response.data));
       },
     );
+  }
+
+  DateTime _getDefaultStartDate() {
+    DateTime startDate;
+    if (_studies != null && _studies.isNotEmpty) {
+      int startTimestamp = _studies.firstWhere((study) => study.key == _selectedStudyKey)?.props?.startDate?.toInt();
+      if (startTimestamp != null && startTimestamp != 0) {
+        startDate = DateTime.fromMillisecondsSinceEpoch(startTimestamp * 1000);
+      }
+    }
+
+    if (startDate == null) {
+      startDate = DateTime(2019);
+    }
+
+    return startDate;
+  }
+
+  DateTime _getDefaultEndDate() {
+    DateTime endDate = DateTime.now().add(Duration(days: 1));
+    if (!endDate.isAfter(_startDate)) {
+      endDate = _startDate.add(Duration(days: 1));
+    }
+    return endDate;
   }
 
   Int64 _getCurrentResponseCount() {
@@ -177,6 +201,8 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                 onChanged: (String newStudyKey) => {
                   setState(() {
                     _selectedStudyKey = newStudyKey;
+                    _startDate = _getDefaultStartDate();
+                    _endDate = _getDefaultEndDate();
                     _fetchResponseStatistics();
                   })
                 },
@@ -192,12 +218,12 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                 _datePicker(
                   context,
                   "Start Date",
-                  startDate,
+                  _startDate,
                   DateTime(2019),
-                  endDate.subtract(Duration(days: 1)),
+                  _endDate.subtract(Duration(days: 1)),
                   (newDate) {
                     setState(() {
-                      startDate = newDate;
+                      _startDate = newDate;
                       _fetchResponseStatistics();
                     });
                   },
@@ -208,7 +234,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                       height: 16,
                     ),
                     Text(
-                      endDate.difference(startDate).inDays.toString(),
+                      _endDate.difference(_startDate).inDays.toString(),
                       style: theme.textTheme.bodyText1.apply(color: Colors.grey[600]),
                     ),
                     Text(
@@ -220,11 +246,11 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                 _datePicker(
                     context,
                     "End Date",
-                    endDate,
-                    startDate.add(Duration(days: 1)),
+                    _endDate,
+                    _startDate.add(Duration(days: 1)),
                     DateTime.now().add(Duration(days: 1)),
                     (newDate) => setState(() {
-                          endDate = newDate;
+                          _endDate = newDate;
                           _fetchResponseStatistics();
                         })),
               ],
