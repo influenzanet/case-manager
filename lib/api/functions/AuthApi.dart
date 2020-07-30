@@ -11,6 +11,6 @@ class AuthApi {
   }
 
   static Future<Response> renewAccessToken(RefreshJWTRequest renewRequest) {
-    return Api.participantAuthClient.post(RENEW_TOKEN_URL, data: renewRequest.toProto3Json());
+    return Api.tokenClient.post(RENEW_TOKEN_URL, data: renewRequest.toProto3Json());
   }
 }

@@ -23,6 +23,7 @@ class Api {
 
   static final participantClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
   static final participantAuthClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
+  static final tokenClient = Dio(BaseOptions(baseUrl: Config.participantApiBaseUrl));
 
   static initialize() {
     managementAuthClient.interceptors.add(_createRenewTokensInterceptors(managementAuthClient));
@@ -152,6 +153,7 @@ class Api {
   static updateAuthentication(String accessToken) {
     managementAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
     participantAuthClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
+    tokenClient.options.headers[HttpHeaders.authorizationHeader] = "Bearer $accessToken";
   }
 
   static resetAuthentication() {
