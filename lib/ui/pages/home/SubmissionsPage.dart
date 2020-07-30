@@ -202,6 +202,21 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                     });
                   },
                 ),
+                Column(
+                  children: [
+                    Container(
+                      height: 16,
+                    ),
+                    Text(
+                      endDate.difference(startDate).inDays.toString(),
+                      style: theme.textTheme.bodyText1.apply(color: Colors.grey[600]),
+                    ),
+                    Text(
+                      "Days",
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ],
+                ),
                 _datePicker(
                     context,
                     "End Date",
