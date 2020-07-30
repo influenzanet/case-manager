@@ -196,7 +196,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                   "Start Date",
                   startDate,
                   DateTime(2019),
-                  endDate,
+                  endDate.subtract(Duration(days: 1)),
                   (newDate) {
                     setState(() {
                       startDate = newDate;
@@ -208,7 +208,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                     context,
                     "End Date",
                     endDate,
-                    startDate,
+                    startDate.add(Duration(days: 1)),
                     DateTime.now().add(Duration(days: 1)),
                     (newDate) => setState(() {
                           endDate = newDate;
