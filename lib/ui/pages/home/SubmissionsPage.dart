@@ -124,7 +124,19 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
   }
 
   DateTime _getDefaultEndDate() {
-    DateTime endDate = DateTime.now().add(Duration(days: 1));
+    DateTime endDate;
+
+    if (_studies != null && _studies.isNotEmpty) {
+      int endTimestamp = _studies.firstWhere((study) => study.key == _selectedStudyKey)?.props?.endDate?.toInt();
+      if (endTimestamp != null && endTimestamp != 0) {
+        endDate = DateTime.fromMillisecondsSinceEpoch(endTimestamp * 1000);
+      }
+    }
+
+    if (endDate == null) {
+      endDate = DateTime.now().add(Duration(days: 1));
+    }
+
     if (!endDate.isAfter(_startDate)) {
       endDate = _startDate.add(Duration(days: 1));
     }
