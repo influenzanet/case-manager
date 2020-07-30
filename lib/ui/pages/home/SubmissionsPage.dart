@@ -73,8 +73,6 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
       onSuccess: (response) {
         var statisticsResponse = StudyResponseStatistics()..mergeFromProto3Json(response.data);
 
-        print(statisticsResponse);
-
         setState(() {
           _studyResponseCounts.clear();
           _studyResponseCounts.addAll(statisticsResponse.surveyResponseCounts);
