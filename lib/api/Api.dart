@@ -36,7 +36,7 @@ class Api {
           return options;
         }
 
-        dioInstance.interceptors.requestLock.lock();
+        _lockAuthInstances();
 
         try {
           var newAccessToken = await _getNewAccessToken();
@@ -46,14 +46,24 @@ class Api {
         } catch (e) {
           print(e.toString());
           resetAuthentication();
-          dioInstance.interceptors.requestLock.unlock();
+          _unlockAuthInstances();
           return dioInstance.reject("Error during token refresh.");
         }
 
-        dioInstance.interceptors.requestLock.unlock();
+        _unlockAuthInstances();
         return options;
       },
     );
+  }
+
+  static _lockAuthInstances() {
+    managementAuthClient.lock();
+    participantAuthClient.lock();
+  }
+
+  static _unlockAuthInstances() {
+    managementAuthClient.unlock();
+    participantAuthClient.unlock();
   }
 
   static Future<String> _getNewAccessToken() async {
