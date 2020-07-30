@@ -187,6 +187,35 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                   labelText: "Study",
                 ),
               ),
+            Container(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _datePicker(
+                  context,
+                  "Start Date",
+                  startDate,
+                  DateTime(2019),
+                  endDate,
+                  (newDate) {
+                    setState(() {
+                      startDate = newDate;
+                      _fetchResponseStatistics();
+                    });
+                  },
+                ),
+                _datePicker(
+                    context,
+                    "End Date",
+                    endDate,
+                    startDate,
+                    DateTime.now().add(Duration(days: 1)),
+                    (newDate) => setState(() {
+                          endDate = newDate;
+                          _fetchResponseStatistics();
+                        })),
+              ],
+            ),
             Container(height: 20),
             (_studyResponseCounts.isNotEmpty)
                 ? Column(
@@ -206,35 +235,6 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                           border: OutlineInputBorder(),
                           labelText: "Survey",
                         ),
-                      ),
-                      Container(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _datePicker(
-                            context,
-                            "Start Date",
-                            startDate,
-                            DateTime(2019),
-                            DateTime.now().add(Duration(days: 1)),
-                            (newDate) {
-                              setState(() {
-                                startDate = newDate;
-                                _fetchResponseStatistics();
-                              });
-                            },
-                          ),
-                          _datePicker(
-                              context,
-                              "End Date",
-                              endDate,
-                              DateTime.now(),
-                              DateTime.now().add(Duration(days: 1)),
-                              (newDate) => setState(() {
-                                    endDate = newDate;
-                                    _fetchResponseStatistics();
-                                  })),
-                        ],
                       ),
                       Container(height: 20),
                       Text(
