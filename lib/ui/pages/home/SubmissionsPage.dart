@@ -196,127 +196,131 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     );
   }
 
+  Widget _body() {
+    ThemeData theme = Theme.of(context);
+    return Container(
+      width: 300,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(height: 20),
+          (_studies.length > 0)
+              ? Column(
+                  children: [
+                    DropdownButtonFormField(
+                      value: _selectedStudyKey,
+                      items: _studies
+                          .map<DropdownMenuItem<String>>(
+                              (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
+                          .toList(),
+                      onChanged: (String newStudyKey) => {
+                        setState(() {
+                          _selectedStudyKey = newStudyKey;
+                          _onStudySelected();
+                        })
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Study",
+                      ),
+                    ),
+                    Container(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _datePicker(
+                          context,
+                          "Start Date",
+                          _startDate,
+                          DateTime(2019),
+                          _endDate.subtract(Duration(days: 1)),
+                          (newDate) {
+                            setState(() {
+                              _startDate = newDate;
+                              _fetchResponseStatistics();
+                            });
+                          },
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              height: 16,
+                            ),
+                            Text(
+                              _endDate.difference(_startDate).inDays.toString(),
+                              style: theme.textTheme.bodyText1.apply(color: Colors.grey[600]),
+                            ),
+                            Text(
+                              "Days",
+                              style: TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        _datePicker(
+                            context,
+                            "End Date",
+                            _endDate,
+                            _startDate.add(Duration(days: 1)),
+                            DateTime.now().add(Duration(days: 1)),
+                            (newDate) => setState(() {
+                                  _endDate = newDate;
+                                  _fetchResponseStatistics();
+                                })),
+                      ],
+                    ),
+                    Container(height: 20),
+                  ],
+                )
+              : Text("No Studies found", textAlign: TextAlign.center, style: theme.textTheme.headline6),
+          (_studyResponseCounts.isNotEmpty)
+              ? Column(
+                  children: [
+                    DropdownButtonFormField(
+                      value: _selectedSurveyKey,
+                      items: _selectableSurveyKeys
+                          .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
+                              value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
+                          .toList(),
+                      onChanged: (String newSurveyKey) => {
+                        setState(() {
+                          _selectedSurveyKey = newSurveyKey;
+                        })
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Survey",
+                      ),
+                    ),
+                    Container(height: 20),
+                    Text(
+                      _getCurrentResponseCount().toString(),
+                      style: theme.textTheme.headline5,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "Responses in Selected Timeframe",
+                      style: theme.textTheme.subtitle1,
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(height: 10),
+                    PrimaryFlatButton(
+                      text: "Download Responses",
+                      onPressed: _downloadResponses,
+                    ),
+                  ],
+                )
+              : Text("No Responses found", textAlign: TextAlign.center, style: theme.textTheme.headline6),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     return DrawerScaffold(
       "Submissions",
-      Container(
-        width: 300,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(height: 20),
-            (_studies.length > 0)
-                ? Column(
-                    children: [
-                      DropdownButtonFormField(
-                        value: _selectedStudyKey,
-                        items: _studies
-                            .map<DropdownMenuItem<String>>(
-                                (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
-                            .toList(),
-                        onChanged: (String newStudyKey) => {
-                          setState(() {
-                            _selectedStudyKey = newStudyKey;
-                            _onStudySelected();
-                          })
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Study",
-                        ),
-                      ),
-                      Container(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _datePicker(
-                            context,
-                            "Start Date",
-                            _startDate,
-                            DateTime(2019),
-                            _endDate.subtract(Duration(days: 1)),
-                            (newDate) {
-                              setState(() {
-                                _startDate = newDate;
-                                _fetchResponseStatistics();
-                              });
-                            },
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 16,
-                              ),
-                              Text(
-                                _endDate.difference(_startDate).inDays.toString(),
-                                style: theme.textTheme.bodyText1.apply(color: Colors.grey[600]),
-                              ),
-                              Text(
-                                "Days",
-                                style: TextStyle(color: Colors.grey, fontSize: 12),
-                              ),
-                            ],
-                          ),
-                          _datePicker(
-                              context,
-                              "End Date",
-                              _endDate,
-                              _startDate.add(Duration(days: 1)),
-                              DateTime.now().add(Duration(days: 1)),
-                              (newDate) => setState(() {
-                                    _endDate = newDate;
-                                    _fetchResponseStatistics();
-                                  })),
-                        ],
-                      ),
-                      Container(height: 20),
-                    ],
-                  )
-                : Text("No Studies found", textAlign: TextAlign.center, style: theme.textTheme.headline6),
-            (_studyResponseCounts.isNotEmpty)
-                ? Column(
-                    children: [
-                      DropdownButtonFormField(
-                        value: _selectedSurveyKey,
-                        items: _selectableSurveyKeys
-                            .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
-                                value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
-                            .toList(),
-                        onChanged: (String newSurveyKey) => {
-                          setState(() {
-                            _selectedSurveyKey = newSurveyKey;
-                          })
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Survey",
-                        ),
-                      ),
-                      Container(height: 20),
-                      Text(
-                        _getCurrentResponseCount().toString(),
-                        style: theme.textTheme.headline5,
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        "Responses in Selected Timeframe",
-                        style: theme.textTheme.subtitle1,
-                        textAlign: TextAlign.center,
-                      ),
-                      Container(height: 10),
-                      PrimaryFlatButton(
-                        text: "Download Responses",
-                        onPressed: _downloadResponses,
-                      ),
-                    ],
-                  )
-                : Text("No Responses found", textAlign: TextAlign.center, style: theme.textTheme.headline6),
-          ],
-        ),
-      ),
+      (MediaQuery.of(context).size.width < 900) ? Center(child: _body()) : _body(),
     );
   }
 }
