@@ -52,11 +52,16 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
           _studyResponseCounts.clear();
           _selectedSurveyKey = _selectableSurveyKeys[0];
           _selectedStudyKey = _studies != null && _studies.isNotEmpty ? _studies[0].key : "";
+          _onStudySelected();
         });
-
-        _fetchResponseStatistics();
       },
     );
+  }
+
+  void _onStudySelected() {
+    _startDate = _getDefaultStartDate();
+    _endDate = _getDefaultEndDate();
+    _fetchResponseStatistics();
   }
 
   void _fetchResponseStatistics() async {
@@ -192,70 +197,72 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
           children: [
             Container(height: 20),
             if (_studies.length > 0)
-              DropdownButtonFormField(
-                value: _selectedStudyKey,
-                items: _studies
-                    .map<DropdownMenuItem<String>>(
-                        (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
-                    .toList(),
-                onChanged: (String newStudyKey) => {
-                  setState(() {
-                    _selectedStudyKey = newStudyKey;
-                    _startDate = _getDefaultStartDate();
-                    _endDate = _getDefaultEndDate();
-                    _fetchResponseStatistics();
-                  })
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Study",
-                ),
+              Column(
+                children: [
+                  DropdownButtonFormField(
+                    value: _selectedStudyKey,
+                    items: _studies
+                        .map<DropdownMenuItem<String>>(
+                            (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
+                        .toList(),
+                    onChanged: (String newStudyKey) => {
+                      setState(() {
+                        _selectedStudyKey = newStudyKey;
+                        _onStudySelected();
+                      })
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Study",
+                    ),
+                  ),
+                  Container(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _datePicker(
+                        context,
+                        "Start Date",
+                        _startDate,
+                        DateTime(2019),
+                        _endDate.subtract(Duration(days: 1)),
+                        (newDate) {
+                          setState(() {
+                            _startDate = newDate;
+                            _fetchResponseStatistics();
+                          });
+                        },
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 16,
+                          ),
+                          Text(
+                            _endDate.difference(_startDate).inDays.toString(),
+                            style: theme.textTheme.bodyText1.apply(color: Colors.grey[600]),
+                          ),
+                          Text(
+                            "Days",
+                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                      _datePicker(
+                          context,
+                          "End Date",
+                          _endDate,
+                          _startDate.add(Duration(days: 1)),
+                          DateTime.now().add(Duration(days: 1)),
+                          (newDate) => setState(() {
+                                _endDate = newDate;
+                                _fetchResponseStatistics();
+                              })),
+                    ],
+                  ),
+                  Container(height: 20),
+                ],
               ),
-            Container(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _datePicker(
-                  context,
-                  "Start Date",
-                  _startDate,
-                  DateTime(2019),
-                  _endDate.subtract(Duration(days: 1)),
-                  (newDate) {
-                    setState(() {
-                      _startDate = newDate;
-                      _fetchResponseStatistics();
-                    });
-                  },
-                ),
-                Column(
-                  children: [
-                    Container(
-                      height: 16,
-                    ),
-                    Text(
-                      _endDate.difference(_startDate).inDays.toString(),
-                      style: theme.textTheme.bodyText1.apply(color: Colors.grey[600]),
-                    ),
-                    Text(
-                      "Days",
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                  ],
-                ),
-                _datePicker(
-                    context,
-                    "End Date",
-                    _endDate,
-                    _startDate.add(Duration(days: 1)),
-                    DateTime.now().add(Duration(days: 1)),
-                    (newDate) => setState(() {
-                          _endDate = newDate;
-                          _fetchResponseStatistics();
-                        })),
-              ],
-            ),
-            Container(height: 20),
             (_studyResponseCounts.isNotEmpty)
                 ? Column(
                     children: [
