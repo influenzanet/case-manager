@@ -29,7 +29,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
 
   List<String> get _selectableSurveyKeys {
     var keys = new List<String>();
-    keys.add(ALL_SURVEYS_KEY);
+    if (_studyResponseCounts.keys.length != 1) keys.add(ALL_SURVEYS_KEY);
     keys.addAll(_studyResponseCounts.keys);
     return keys;
   }
