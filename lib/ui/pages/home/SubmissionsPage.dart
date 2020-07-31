@@ -42,6 +42,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
 
   void _fetchStudies() async {
     await Api.callWithoutParameter(
+      context,
       StudyApi.getAllStudies,
       onSuccess: (response) {
         var studyResponse = Studies()..mergeFromProto3Json(response.data);
@@ -73,6 +74,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
       ..until = Int64(_endDate.millisecondsSinceEpoch);
 
     await Api.callWithParameter<SurveyResponseQuery>(
+      context,
       StudyApi.getResponseStatistics,
       query,
       onSuccess: (response) {
@@ -97,6 +99,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     }
 
     await Api.callWithParameter<SurveyResponseQuery>(
+      context,
       StudyApi.getSurveyResponses,
       query,
       onSuccess: (response) {

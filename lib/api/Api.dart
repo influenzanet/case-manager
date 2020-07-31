@@ -5,7 +5,9 @@ import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pbserver.dart';
 import 'package:case_manager/state/app/AppNotifier.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
+import 'package:case_manager/ui/common/widgets/dialogs/ErrorDialog.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 typedef ApiFunctionWithParameter<T> = Future<Response> Function(T message);
@@ -90,12 +92,14 @@ class Api {
   }
 
   static Future callWithoutParameter(
+    BuildContext context,
     ApiFunctionWithoutParameter apiFunction, {
     Function(Response) onSuccess,
     Function(Response) onServerError,
     Function(dynamic) onException,
   }) async {
     return _call<dynamic>(
+      context,
       apiFunctionWithoutParameter: apiFunction,
       onSuccess: onSuccess,
       onServerError: onServerError,
@@ -104,6 +108,7 @@ class Api {
   }
 
   static Future callWithParameter<T>(
+    BuildContext context,
     ApiFunctionWithParameter<T> apiFunction,
     T message, {
     Function(Response) onSuccess,
@@ -111,6 +116,7 @@ class Api {
     Function(dynamic) onException,
   }) async {
     return _call<T>(
+      context,
       apiFunctionWithParameter: apiFunction,
       message: message,
       onSuccess: onSuccess,
@@ -119,7 +125,8 @@ class Api {
     );
   }
 
-  static Future _call<T>({
+  static Future _call<T>(
+    BuildContext context, {
     ApiFunctionWithoutParameter apiFunctionWithoutParameter,
     ApiFunctionWithParameter<T> apiFunctionWithParameter,
     T message,
@@ -141,11 +148,14 @@ class Api {
       if (response.statusCode == 200) {
         if (onSuccess != null) onSuccess(response);
       } else {
-        print("${response.statusCode}: ${response.statusMessage}");
+        var errorMessage = "${response.statusCode}: ${response.statusMessage}";
+        print(errorMessage);
+        ErrorDialog.display(context, errorMessage);
         if (onServerError != null) onServerError(response);
       }
     } catch (e) {
-      print(e);
+      print(e.toString());
+      ErrorDialog.display(context, e.toString());
       if (onException != null) onException(e);
     }
   }

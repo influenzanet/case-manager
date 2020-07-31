@@ -3,10 +3,11 @@ import 'package:case_manager/api/functions/AuthApi.dart';
 import 'package:case_manager/config/Config.dart';
 import 'package:case_manager/generated/api/user_management/user-management-service.pb.dart';
 import 'package:case_manager/state/app/AppNotifier.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginManager {
-  static Future<bool> login(String email, String password) async {
+  static Future<bool> login(BuildContext context, String email, String password) async {
     final state = Modular.get<AppNotifier>();
     var loginMessage = LoginWithEmailMsg()
       ..email = email
@@ -16,6 +17,7 @@ class LoginManager {
     bool success = false;
 
     await Api.callWithParameter<LoginWithEmailMsg>(
+      context,
       AuthApi.login,
       loginMessage,
       onSuccess: (response) {
