@@ -29,17 +29,22 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'CASE Manager',
       theme: ThemeData(
+        fontFamily: "Lato",
         primarySwatch: Colors.blue,
-        primaryTextTheme: TextTheme(
-          headline1: TextStyle(color: Colors.white),
-          headline2: TextStyle(color: Colors.white),
-          headline3: TextStyle(color: Colors.white),
-          headline4: TextStyle(color: Colors.white),
-          headline5: TextStyle(color: Colors.white),
-          headline6: TextStyle(color: Colors.white),
-          button: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+        canvasColor: Color(0xff646464),
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          color: Color(0xFF0091AC),
+          textTheme: TextTheme(
+              headline6: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+              button: TextStyle(fontSize: 24, color: Colors.white),
+              caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB))),
         ),
-        bottomAppBarColor: Colors.grey[200],
+        bottomAppBarColor: Color(0xff505050),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.

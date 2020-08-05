@@ -10,6 +10,12 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Run (Release)",
+			"type": "shell",
+			"command": "flutter run -d chrome --release --web-port 3000",
+			"problemMatcher": []
+		},
+		{
 			"label": "Generate API",
 			"type": "shell",
 			"command": "./scripts/generate_api.sh",

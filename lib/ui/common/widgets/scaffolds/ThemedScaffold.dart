@@ -1,3 +1,4 @@
+import 'package:case_manager/ui/common/widgets/app-bars/ThemedAppBar.dart';
 import 'package:flutter/material.dart';
 
 class ThemedScaffold extends Scaffold {
@@ -9,7 +10,7 @@ class ThemedScaffold extends Scaffold {
               child: body,
             ));
 
-  ThemedScaffold.scrollable(BuildContext context, {PreferredSizeWidget appBar, Widget drawer, Widget body})
+  ThemedScaffold.scrollable(BuildContext context, {ThemedAppBar appBar, Widget drawer, Widget body})
       : super(
             appBar: appBar,
             drawer: drawer,
@@ -17,15 +18,10 @@ class ThemedScaffold extends Scaffold {
               builder: (BuildContext context, BoxConstraints viewportConstraints) {
                 return SingleChildScrollView(
                   child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: viewportConstraints.maxHeight - _toolbarHeight(appBar != null)),
+                    constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
                     child: body,
                   ),
                 );
               },
             ));
-
-  static double _toolbarHeight(bool toolbarExits) {
-    return (toolbarExits) ? kToolbarHeight : 0;
-  }
 }

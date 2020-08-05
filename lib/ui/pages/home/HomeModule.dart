@@ -1,4 +1,4 @@
-import 'package:case_manager/ui/common/RouteGuards/AuthGuard.dart';
+import 'package:case_manager/ui/common/route-guards/AuthGuard.dart';
 import 'package:case_manager/ui/common/routes/HomeRoutes.dart';
 import 'package:case_manager/ui/pages/home/SubmissionsPage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
