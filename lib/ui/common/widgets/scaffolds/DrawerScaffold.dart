@@ -1,7 +1,7 @@
 import 'package:case_manager/ui/common/widgets/drawers/AppDrawer.dart';
 import "package:flutter/material.dart";
 
-import 'ThemedScaffold.dart';
+import 'BackgroundScaffold.dart';
 
 class DrawerScaffold extends StatelessWidget {
   final String title;
@@ -32,7 +32,7 @@ class DrawerScaffold extends StatelessWidget {
     final theme = Theme.of(context);
     final bool mobileLayout = MediaQuery.of(context).size.width < 600;
     return (mobileLayout)
-        ? ThemedScaffold(
+        ? BackgroundScaffold(
             appBar: AppBar(
               elevation: 0,
               backgroundColor: theme.canvasColor,
@@ -41,7 +41,7 @@ class DrawerScaffold extends StatelessWidget {
             drawer: AppDrawer(),
             body: buildBody(context),
           )
-        : ThemedScaffold(
+        : BackgroundScaffold(
             body: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

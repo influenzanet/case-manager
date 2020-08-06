@@ -1,15 +1,13 @@
 import 'package:case_manager/logic/LoginManager.dart';
-import 'package:case_manager/ui/common/widgets/app-bars/UnauthAppBar.dart';
 import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
-import 'package:case_manager/ui/common/widgets/footers/Footer.dart';
 import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
+import 'package:case_manager/ui/common/widgets/scaffolds/UnauthScaffold.dart';
 import 'package:case_manager/ui/common/widgets/text/FormLabel.dart';
 import 'package:case_manager/ui/common/widgets/text/Headline.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 import '../common/routes/AppRoutes.dart';
-import '../common/widgets/scaffolds/ThemedScaffold.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -128,19 +126,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ThemedScaffold.scrollable(
-      context,
-      appBar: UnauthAppBar(),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(),
-          _loginBox(),
-          Footer(),
-        ],
-      ),
+    return UnauthScaffold(
+      _loginBox(),
     );
   }
 }
