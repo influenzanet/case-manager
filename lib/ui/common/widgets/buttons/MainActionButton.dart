@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PrimaryFlatButton extends StatelessWidget {
+class MainActionButton extends StatelessWidget {
   final void Function() onPressed;
   final String text;
 
-  PrimaryFlatButton({@required this.text, this.onPressed});
+  MainActionButton({@required this.text, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,10 @@ class PrimaryFlatButton extends StatelessWidget {
     return FlatButton(
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(text, style: theme.primaryTextTheme.button),
+        padding: const EdgeInsets.all(12.0),
+        child: Text(text, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
       ),
-      color: theme.primaryColor,
+      color: Color(0xffE6E15A),
     );
   }
 }

@@ -30,7 +30,7 @@ class AppWidget extends StatelessWidget {
       title: 'CASE Manager',
       theme: ThemeData(
         fontFamily: "Lato",
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xffE6E15A),
         canvasColor: Color(0xff646464),
         appBarTheme: AppBarTheme(
           elevation: 0,

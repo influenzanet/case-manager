@@ -3,7 +3,7 @@ import 'package:case_manager/api/functions/StudyApi.dart';
 import 'package:case_manager/generated/api/study_service/study-service.pb.dart';
 import 'package:case_manager/generated/api/study_service/study.pb.dart';
 import 'package:case_manager/logic/FileSaver.dart';
-import 'package:case_manager/ui/common/widgets/buttons/PrimaryFlatButton.dart';
+import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/DrawerScaffold.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
@@ -307,7 +307,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                       textAlign: TextAlign.center,
                     ),
                     Container(height: 10),
-                    PrimaryFlatButton(
+                    MainActionButton(
                       text: "Download Responses",
                       onPressed: _downloadResponses,
                     ),
