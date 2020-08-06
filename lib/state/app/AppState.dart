@@ -8,7 +8,7 @@ class AppState {
   String userId;
   @JsonKey(defaultValue: "en")
   String preferredLanguage;
-  @JsonKey(defaultValue: false)
+  @JsonKey(defaultValue: true)
   bool persistState;
 
   @JsonKey(defaultValue: "")

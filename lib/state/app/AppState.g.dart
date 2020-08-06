@@ -10,7 +10,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
   return AppState(
     json['userId'] as String ?? '',
     json['preferredLanguage'] as String ?? 'en',
-    json['persistState'] as bool ?? false,
+    json['persistState'] as bool ?? true,
     json['accessToken'] as String ?? '',
     json['refreshToken'] as String ?? '',
     json['expiresAt'] as int ?? 0,
