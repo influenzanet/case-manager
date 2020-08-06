@@ -6,7 +6,7 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   ThemedAppBar(this._actions);
 
-  double getPlannedHeight() => _height;
+  // double getPlannedHeight() => _height;
 
   Widget _actionWidgets() {
     var widgets = new List<Widget>();

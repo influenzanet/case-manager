@@ -19,17 +19,17 @@ class ThemedScaffold extends Scaffold {
             drawer: drawer,
             body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints viewportConstraints) {
-                final appBarHeight = appBar.getPlannedHeight();
-                final screenHeight = viewportConstraints.maxHeight + appBarHeight;
-                final screenWidth = viewportConstraints.maxWidth;
+                final screen = MediaQuery.of(context).size;
 
-                final screenFactor = min(screenHeight, screenWidth);
+                final appBarHeight = screen.height - viewportConstraints.maxHeight;
 
-                final imageHeight = screenFactor * 2.1;
+                final screenFactor = min(screen.height, screen.width);
+
+                final imageHeight = screenFactor * 2.15;
                 final imageWidth = imageHeight;
 
-                final excessHeight = imageHeight - screenHeight;
-                final excessWidth = imageWidth - screenWidth;
+                final excessHeight = imageHeight - screen.height;
+                final excessWidth = imageWidth - screen.width;
 
                 return Stack(
                   fit: StackFit.expand,
