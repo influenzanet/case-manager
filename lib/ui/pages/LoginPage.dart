@@ -3,6 +3,8 @@ import 'package:case_manager/ui/common/widgets/app-bars/UnauthAppBar.dart';
 import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
 import 'package:case_manager/ui/common/widgets/footers/Footer.dart';
 import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
+import 'package:case_manager/ui/common/widgets/text/FormLabel.dart';
+import 'package:case_manager/ui/common/widgets/text/Headline.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
@@ -33,17 +35,15 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.white,
         padding: EdgeInsets.all(AppTheme.spacing),
         child: Container(
-          constraints: BoxConstraints(maxWidth: 360),
+          constraints: BoxConstraints(maxWidth: AppTheme.formWidth),
           child: Form(
             key: _formKey,
             child: AutofillGroup(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("Login", style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900)),
-                  Spacing.headline(),
-                  Text("Email", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                  Spacing.label(),
+                  Headline("Login"),
+                  FormLabel("Email"),
                   TextFormField(
                     controller: emailEditingController,
                     keyboardType: TextInputType.emailAddress,
@@ -72,8 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   Spacing.formElement(),
-                  Text("Password", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                  Spacing.label(),
+                  FormLabel("Password"),
                   TextFormField(
                     controller: passwordEditingController,
                     keyboardType: TextInputType.visiblePassword,

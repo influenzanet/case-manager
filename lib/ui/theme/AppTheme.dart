@@ -31,4 +31,6 @@ class AppTheme {
   static const double headlineSpacing = 32;
   static const double formElementSpacing = 20;
   static const double labelSpacing = 8;
+
+  static const double formWidth = 360;
 }
