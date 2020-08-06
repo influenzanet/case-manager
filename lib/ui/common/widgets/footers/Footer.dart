@@ -1,4 +1,6 @@
+import 'package:case_manager/ui/common/widgets/images/SvgImage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class Footer extends StatelessWidget {
@@ -27,7 +29,7 @@ class Footer extends StatelessWidget {
                 Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: WebsafeSvg.asset(
+                  child: svgImageAsset(
                     "assets/images/logos/Coneno.svg",
                     color: theme.appBarTheme.textTheme.caption.color,
                     height: 36,

@@ -44,6 +44,7 @@ class AppWidget extends StatelessWidget {
               button: TextStyle(fontSize: 24, color: Colors.white),
               caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB))),
         ),
+        cardColor: Colors.white,
         bottomAppBarColor: Color(0xff505050),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and

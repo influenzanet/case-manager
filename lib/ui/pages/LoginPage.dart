@@ -27,76 +27,75 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginBox() {
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Center(
-        child: Container(
-          width: 400,
-          child: Form(
-            key: _formKey,
-            child: AutofillGroup(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    controller: emailEditingController,
-                    keyboardType: TextInputType.emailAddress,
-                    autofillHints: [AutofillHints.username],
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "E-Mail",
-                    ),
-                    validator: (value) {
-                      return (value.isEmpty) ? "Please enter your E-Mail address" : null;
-                    },
+    return Center(
+      child: Container(
+        constraints: BoxConstraints(maxWidth: 400),
+        color: Colors.white,
+        padding: EdgeInsets.all(42),
+        child: Form(
+          key: _formKey,
+          child: AutofillGroup(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: emailEditingController,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: [AutofillHints.username],
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "E-Mail",
                   ),
-                  Container(height: 32),
-                  TextFormField(
-                    controller: passwordEditingController,
-                    keyboardType: TextInputType.visiblePassword,
-                    autofillHints: [AutofillHints.password],
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Password",
-                    ),
-                    validator: (value) {
-                      return (value.isEmpty) ? "Please enter your password" : null;
-                    },
+                  validator: (value) {
+                    return (value.isEmpty) ? "Please enter your E-Mail address" : null;
+                  },
+                ),
+                Container(height: 32),
+                TextFormField(
+                  controller: passwordEditingController,
+                  keyboardType: TextInputType.visiblePassword,
+                  autofillHints: [AutofillHints.password],
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
                   ),
-                  Container(height: 16),
-                  Consumer<AppNotifier>(
-                    builder: (context, state) {
-                      return CheckboxListTile(
-                        title: Text("Remember Me"),
-                        value: state.persistState,
-                        onChanged: (value) {
-                          state.persistState = value;
-                        },
-                        controlAffinity: ListTileControlAffinity.leading,
-                        contentPadding: EdgeInsets.zero,
-                      );
-                    },
-                  ),
-                  Container(height: 16),
-                  PrimaryFlatButton(
-                    text: "Login",
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        if (await LoginManager.login(
-                          context,
-                          emailEditingController.text,
-                          passwordEditingController.text,
-                        )) {
-                          Navigator.of(context).pushReplacementNamed(AppRoutes.home);
-                        }
+                  validator: (value) {
+                    return (value.isEmpty) ? "Please enter your password" : null;
+                  },
+                ),
+                Container(height: 16),
+                Consumer<AppNotifier>(
+                  builder: (context, state) {
+                    return CheckboxListTile(
+                      title: Text("Remember Me"),
+                      value: state.persistState,
+                      onChanged: (value) {
+                        state.persistState = value;
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                    );
+                  },
+                ),
+                Container(height: 16),
+                PrimaryFlatButton(
+                  text: "Login",
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      if (await LoginManager.login(
+                        context,
+                        emailEditingController.text,
+                        passwordEditingController.text,
+                      )) {
+                        Navigator.of(context).pushReplacementNamed(AppRoutes.home);
                       }
-                    },
-                  ),
-                ],
-              ),
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ),
@@ -114,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Container(),
           _loginBox(),
           Footer(),
         ],
