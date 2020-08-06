@@ -1,7 +1,5 @@
 import 'package:case_manager/ui/common/widgets/images/SvgImage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 class Footer extends StatelessWidget {
   @override
