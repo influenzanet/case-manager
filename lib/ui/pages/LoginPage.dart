@@ -53,22 +53,25 @@ class _LoginPageState extends State<LoginPage> {
                       contentPadding: EdgeInsets.all(16),
                       border: InputBorder.none,
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffE6E15A), width: 2, style: BorderStyle.solid),
+                        borderSide:
+                            BorderSide(color: Color(0xffE6E15A), width: AppTheme.borderWidth, style: BorderStyle.solid),
                         borderRadius: BorderRadius.zero,
                       ),
                       errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: theme.errorColor, width: 2, style: BorderStyle.solid),
+                        borderSide:
+                            BorderSide(color: theme.errorColor, width: AppTheme.borderWidth, style: BorderStyle.solid),
                         borderRadius: BorderRadius.zero,
                       ),
                       focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: theme.errorColor, width: 2, style: BorderStyle.solid),
+                        borderSide:
+                            BorderSide(color: theme.errorColor, width: AppTheme.borderWidth, style: BorderStyle.solid),
                         borderRadius: BorderRadius.zero,
                       ),
                       filled: true,
                       fillColor: Color(0xffEDEDED),
                     ),
                     validator: (value) {
-                      return (value.isEmpty) ? "Please enter your Email address" : null;
+                      return (value.isEmpty) ? "Please enter your email address" : null;
                     },
                   ),
                   Spacing.formElement(),

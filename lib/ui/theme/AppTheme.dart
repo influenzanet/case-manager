@@ -10,13 +10,14 @@ class AppTheme {
       elevation: 0,
       color: Color(0xFF0091AC),
       textTheme: TextTheme(
-          headline6: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-          button: TextStyle(fontSize: 24, color: Colors.white),
-          caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB))),
+        headline6: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+        ),
+        button: TextStyle(fontSize: 24, color: Colors.white),
+        caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB)),
+      ),
     ),
     textTheme: TextTheme(button: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
     cardColor: Colors.white,
@@ -33,4 +34,6 @@ class AppTheme {
   static const double labelSpacing = 8;
 
   static const double formWidth = 360;
+
+  static const double borderWidth = 2;
 }
