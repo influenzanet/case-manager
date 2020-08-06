@@ -1,3 +1,5 @@
+import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
+import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,7 +15,7 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     for (int i = 0; i < _actions.length; i++) {
       widgets.add(_actions[i]);
-      if (i < _actions.length - 1) widgets.add(Container(width: 42));
+      if (i < _actions.length - 1) widgets.add(Spacing.horizontal());
     }
 
     return Row(
@@ -30,7 +32,7 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
       height: _height,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 42),
+          padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacing),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 1366),
             child: Row(

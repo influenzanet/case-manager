@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MainActionButton extends StatelessWidget {
+class FooterButton extends StatelessWidget {
   final void Function() onPressed;
   final String text;
 
-  MainActionButton({@required this.text, this.onPressed});
+  FooterButton({@required this.text, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return FlatButton(
+      child: Text(text, style: theme.appBarTheme.textTheme.caption),
       onPressed: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Text(text),
-      ),
-      color: theme.primaryColor,
     );
   }
 }

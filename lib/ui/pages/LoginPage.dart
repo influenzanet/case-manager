@@ -2,6 +2,8 @@ import 'package:case_manager/logic/LoginManager.dart';
 import 'package:case_manager/ui/common/widgets/app-bars/UnauthAppBar.dart';
 import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
 import 'package:case_manager/ui/common/widgets/footers/Footer.dart';
+import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
+import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 import '../common/routes/AppRoutes.dart';
@@ -29,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     return Center(
       child: Container(
         color: Colors.white,
-        padding: EdgeInsets.all(42),
+        padding: EdgeInsets.all(AppTheme.spacing),
         child: Container(
           constraints: BoxConstraints(maxWidth: 360),
           child: Form(
@@ -39,9 +41,9 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text("Login", style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900)),
-                  Container(height: 32),
+                  Spacing.headline(),
                   Text("Email", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                  Container(height: 8),
+                  Spacing.label(),
                   TextFormField(
                     controller: emailEditingController,
                     keyboardType: TextInputType.emailAddress,
@@ -69,9 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                       return (value.isEmpty) ? "Please enter your Email address" : null;
                     },
                   ),
-                  Container(height: 20),
+                  Spacing.formElement(),
                   Text("Password", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-                  Container(height: 8),
+                  Spacing.label(),
                   TextFormField(
                     controller: passwordEditingController,
                     keyboardType: TextInputType.visiblePassword,
@@ -98,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                       return (value.isEmpty) ? "Please enter your password" : null;
                     },
                   ),
-                  Container(height: 42),
+                  Spacing(),
                   MainActionButton(
                     text: "Login",
                     onPressed: () async {

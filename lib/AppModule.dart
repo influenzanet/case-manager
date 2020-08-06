@@ -2,6 +2,7 @@ import 'package:case_manager/state/app/AppNotifier.dart';
 import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/HomeModule.dart';
 import 'package:case_manager/ui/pages/home/RedirectPage.dart';
+import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'ui/pages/LoginPage.dart';
@@ -28,29 +29,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CASE Manager',
-      theme: ThemeData(
-        fontFamily: "Lato",
-        primaryColor: Color(0xffE6E15A),
-        canvasColor: Color(0xff646464),
-        appBarTheme: AppBarTheme(
-          elevation: 0,
-          color: Color(0xFF0091AC),
-          textTheme: TextTheme(
-              headline6: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-              button: TextStyle(fontSize: 24, color: Colors.white),
-              caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB))),
-        ),
-        cardColor: Colors.white,
-        bottomAppBarColor: Color(0xff505050),
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: AppTheme.themeData,
       navigatorKey: Modular.navigatorKey,
       initialRoute: AppRoutes.login,
       onGenerateRoute: Modular.generateRoute,
