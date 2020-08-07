@@ -1,5 +1,5 @@
 import 'package:case_manager/ui/common/widgets/buttons/FooterButton.dart';
-import 'package:case_manager/ui/common/widgets/images/SvgImage.dart';
+import 'package:case_manager/ui/common/widgets/images/FooterImage.dart';
 import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +23,8 @@ class Footer extends StatelessWidget {
                 FooterButton(text: "Privacy Policy", onPressed: () {}),
                 Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: svgImageAsset(
-                    "assets/images/logos/Coneno.svg",
-                    color: theme.appBarTheme.textTheme.caption.color,
-                    height: 36,
-                  ),
+                  padding: const EdgeInsets.only(bottom: AppTheme.footerImageBottomPadding),
+                  child: FooterImage(theme.appBarTheme.textTheme.caption.color),
                 ),
               ],
             ),

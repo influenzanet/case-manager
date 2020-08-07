@@ -15,6 +15,7 @@ class BackgroundFooterScaffold extends StatelessWidget {
     return BackgroundScaffold.scrollable(
       context,
       appBar: appBar,
+      endDrawer: appBar.getDrawer(),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

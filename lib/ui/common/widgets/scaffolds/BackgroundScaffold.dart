@@ -6,18 +6,21 @@ import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundScaffold extends Scaffold {
-  BackgroundScaffold({PreferredSizeWidget appBar, Widget drawer, Widget body})
+  BackgroundScaffold({PreferredSizeWidget appBar, Widget drawer, Widget endDrawer, Widget body})
       : super(
             appBar: appBar,
             drawer: drawer,
+            endDrawer: endDrawer,
             body: SafeArea(
               child: body,
             ));
 
-  BackgroundScaffold.scrollable(BuildContext context, {ThemedAppBar appBar, Widget drawer, Widget body})
+  BackgroundScaffold.scrollable(BuildContext context,
+      {ThemedAppBar appBar, Widget drawer, Widget endDrawer, Widget body})
       : super(
             appBar: appBar,
             drawer: drawer,
+            endDrawer: endDrawer,
             body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints viewportConstraints) {
                 final screen = MediaQuery.of(context).size;

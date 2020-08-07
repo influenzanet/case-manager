@@ -28,6 +28,8 @@ class AppTheme {
         button: TextStyle(fontSize: 24, color: Colors.white),
         caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB)),
       ),
+      iconTheme: IconThemeData(color: Colors.white, size: 32),
+      actionsIconTheme: IconThemeData(color: Color(0xff006A7E)),
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.all(16),
@@ -53,6 +55,8 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 
+  static const double drawerBreakPoint = 800;
+
   static const Color backgroundWaterMarkColor = Color(0xff606060);
   static const Color cursorColor = Color(0xff008CA5);
 
@@ -62,8 +66,12 @@ class AppTheme {
   static const double labelSpacing = 8;
 
   static const double actionButtonPadding = 12;
+  static const double drawerLeftPadding = 75;
+  static const double footerImageBottomPadding = 16;
 
   static const double cardWidth = 360;
+
+  static const double footerImageHeight = 36;
 
   static const double borderWidth = 2;
 }
