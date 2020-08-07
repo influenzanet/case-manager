@@ -1,10 +1,10 @@
 import 'package:case_manager/logic/LoginManager.dart';
 import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
-import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
+import 'package:case_manager/ui/common/widgets/cards/Card.dart';
+import 'package:case_manager/ui/common/widgets/inputs/FormButton.dart';
+import 'package:case_manager/ui/common/widgets/inputs/FormInput.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/UnauthScaffold.dart';
-import 'package:case_manager/ui/common/widgets/text/FormLabel.dart';
 import 'package:case_manager/ui/common/widgets/text/Headline.dart';
-import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 import '../common/routes/AppRoutes.dart';
@@ -26,82 +26,43 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  Widget _loginBox() {
-    var theme = Theme.of(context);
-    return Center(
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(AppTheme.spacing),
-        child: Container(
-          constraints: BoxConstraints(maxWidth: AppTheme.formWidth),
-          child: Form(
-            key: _formKey,
-            child: AutofillGroup(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Headline("Login"),
-                  FormLabel("Email"),
+  @override
+  Widget build(BuildContext context) {
+    return UnauthScaffold(
+      MainCard(
+        child: Form(
+          key: _formKey,
+          child: AutofillGroup(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Headline("Login"),
+                FormInput(
+                  "Email",
                   TextFormField(
                     controller: emailEditingController,
                     keyboardType: TextInputType.emailAddress,
                     autofillHints: [AutofillHints.username],
                     // autofocus: true,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(16),
-                      border: InputBorder.none,
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xffE6E15A), width: AppTheme.borderWidth, style: BorderStyle.solid),
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      errorBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: theme.errorColor, width: AppTheme.borderWidth, style: BorderStyle.solid),
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: theme.errorColor, width: AppTheme.borderWidth, style: BorderStyle.solid),
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      filled: true,
-                      fillColor: Color(0xffEDEDED),
-                    ),
                     validator: (value) {
                       return (value.isEmpty) ? "Please enter your email address" : null;
                     },
                   ),
-                  Spacing.formElement(),
-                  FormLabel("Password"),
+                ),
+                FormInput(
+                  "Password",
                   TextFormField(
                     controller: passwordEditingController,
                     keyboardType: TextInputType.visiblePassword,
                     autofillHints: [AutofillHints.password],
                     obscureText: true,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(16),
-                      border: InputBorder.none,
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffE6E15A), width: 2, style: BorderStyle.solid),
-                          borderRadius: BorderRadius.zero),
-                      errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: theme.errorColor, width: 2, style: BorderStyle.solid),
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: theme.errorColor, width: 2, style: BorderStyle.solid),
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      filled: true,
-                      fillColor: Color(0xffEDEDED),
-                    ),
                     validator: (value) {
                       return (value.isEmpty) ? "Please enter your password" : null;
                     },
                   ),
-                  Spacing(),
-                  MainActionButton(
+                ),
+                FormButton(
+                  child: MainActionButton(
                     text: "Login",
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
@@ -115,19 +76,12 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return UnauthScaffold(
-      _loginBox(),
     );
   }
 }
