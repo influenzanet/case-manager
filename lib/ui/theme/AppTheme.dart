@@ -8,10 +8,11 @@ class AppTheme {
     primaryColorBrightness: Brightness.light,
     accentColor: Color(0xff008ca5),
     accentColorBrightness: Brightness.dark,
-    canvasColor: Color(0xff646464),
+    canvasColor: Colors.white,
     cursorColor: cursorColor,
     textSelectionHandleColor: cursorColor,
     textSelectionColor: Color(0xff00C1E5),
+    scaffoldBackgroundColor: Color(0xff646464),
     cupertinoOverrideTheme: CupertinoThemeData(
       primaryColor: cursorColor,
     ),
