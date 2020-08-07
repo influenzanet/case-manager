@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -5,7 +6,15 @@ class AppTheme {
     fontFamily: "Lato",
     primaryColor: Color(0xffE6E15A),
     primaryColorBrightness: Brightness.light,
+    accentColor: Color(0xff008ca5),
+    accentColorBrightness: Brightness.dark,
     canvasColor: Color(0xff646464),
+    cursorColor: cursorColor,
+    textSelectionHandleColor: cursorColor,
+    textSelectionColor: Color(0xff00C1E5),
+    cupertinoOverrideTheme: CupertinoThemeData(
+      primaryColor: cursorColor,
+    ),
     appBarTheme: AppBarTheme(
       elevation: 0,
       color: Color(0xFF0091AC),
@@ -44,6 +53,7 @@ class AppTheme {
   );
 
   static const Color backgroundWaterMarkColor = Color(0xff606060);
+  static const Color cursorColor = Color(0xff008CA5);
 
   static const double spacing = 42;
   static const double headlineSpacing = 32;
