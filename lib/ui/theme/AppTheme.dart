@@ -70,6 +70,7 @@ class AppTheme {
   static const Color cursorColor = Color(0xff008CA5);
 
   static const double spacing = 42;
+  static const double drawerSpacing = 21;
   static const double headlineSpacing = 32;
   static const double formElementSpacing = 20;
   static const double labelSpacing = 8;
@@ -79,6 +80,7 @@ class AppTheme {
   static const double footerImageBottomPadding = 16;
 
   static const double cardWidth = 360;
+  static const double drawerWidth = 240;
 
   static const double headerFooterHeight = 100;
   static const double headerFooterDrawerHeight = 60;

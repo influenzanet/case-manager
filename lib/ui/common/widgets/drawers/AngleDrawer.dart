@@ -9,28 +9,36 @@ class AngleDrawer extends StatelessWidget {
 
   AngleDrawer(this._actions);
 
+  double _drawerBottomCut(double screenHeight) {
+    var cutFactor = screenHeight / 1080;
+    var cutAmount = 100 * cutFactor;
+    return cutAmount;
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Theme(
       data: theme.copyWith(canvasColor: theme.appBarTheme.color),
       child: ClipPath(
-        clipper: AngleClipper(),
-        child: Drawer(
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              ..._actions,
-              Spacer(),
-              Row(
-                children: [
-                  Spacer(),
-                  FooterImage(theme.appBarTheme.actionsIconTheme.color),
-                  Spacing.horizontal(),
-                ],
-              ),
-            ]),
+        clipper: AngleClipper(_drawerBottomCut),
+        child: SizedBox(
+          width: AppTheme.drawerWidth,
+          child: Drawer(
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                ..._actions,
+                Spacer(),
+                Row(
+                  children: [
+                    Spacing.horizontal(width: _drawerBottomCut(MediaQuery.of(context).size.height - AppTheme.spacing)),
+                    Expanded(child: FooterImage(theme.appBarTheme.actionsIconTheme.color)),
+                  ],
+                ),
+              ]),
+            ),
           ),
         ),
       ),
@@ -39,14 +47,17 @@ class AngleDrawer extends StatelessWidget {
 }
 
 class AngleClipper extends CustomClipper<Path> {
+  final double Function(double height) _getBottomCut;
+
+  AngleClipper(this._getBottomCut);
+
   @override
   Path getClip(Size size) {
     var path = Path();
-    var cutFactor = size.height / 1080;
 
     path.addPolygon([
       Offset(0, 0),
-      Offset(size.width * 0.3 * cutFactor, size.height),
+      Offset(_getBottomCut(size.height), size.height),
       Offset(size.width, size.height),
       Offset(size.width, 0),
     ], true);

@@ -43,15 +43,15 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var titleStyle =
-        drawerBreakPoint(context) ? theme.appBarTheme.textTheme.headline6 : theme.appBarTheme.textTheme.headline5;
+    var drawer = drawerBreakPoint(context);
+    var titleStyle = drawer ? theme.appBarTheme.textTheme.headline6 : theme.appBarTheme.textTheme.headline5;
 
     return Container(
       color: theme.appBarTheme.color,
       height: _height,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacing),
+          padding: EdgeInsets.symmetric(horizontal: drawer ? AppTheme.drawerSpacing : AppTheme.spacing),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: AppTheme.maxWidth),
             child: Row(

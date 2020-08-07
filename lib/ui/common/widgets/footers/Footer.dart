@@ -16,13 +16,13 @@ class Footer extends StatelessWidget {
       color: theme.bottomAppBarColor,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacing),
+          padding: EdgeInsets.symmetric(horizontal: drawer ? AppTheme.drawerSpacing : AppTheme.spacing),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: AppTheme.maxWidth),
             child: Row(
               children: [
                 FooterButton(text: "Impressum", onPressed: () {}),
-                Spacing.scaledHorizontal(drawer ? 0.5 : 1),
+                Spacing.scaledHorizontal(drawer ? 0.25 : 1),
                 FooterButton(text: "Privacy Policy", onPressed: () {}),
                 Spacer(),
                 drawer
