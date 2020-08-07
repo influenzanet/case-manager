@@ -1,3 +1,4 @@
+import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class MainActionButton extends StatelessWidget {
@@ -12,7 +13,7 @@ class MainActionButton extends StatelessWidget {
     return FlatButton(
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(AppTheme.actionButtonPadding),
         child: Text(text),
       ),
       color: theme.primaryColor,

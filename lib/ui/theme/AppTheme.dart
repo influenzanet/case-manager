@@ -61,6 +61,8 @@ class AppTheme {
   static const double formElementSpacing = 20;
   static const double labelSpacing = 8;
 
+  static const double actionButtonPadding = 12;
+
   static const double cardWidth = 360;
 
   static const double borderWidth = 2;
