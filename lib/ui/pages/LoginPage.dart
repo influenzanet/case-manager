@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return UnauthScaffold(
+      context,
       MainCard(
         child: Form(
           key: _formKey,

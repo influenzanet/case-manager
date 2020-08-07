@@ -20,11 +20,18 @@ class AppTheme {
       elevation: 0,
       color: Color(0xFF0091AC),
       textTheme: TextTheme(
-        headline6: TextStyle(
+        headline5: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.w700,
           color: Colors.white,
         ),
+        headline6: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+        ),
+        bodyText1: TextStyle(fontSize: 18, color: Color(0xffCBCBCB)),
+        bodyText2: TextStyle(fontSize: 16, color: Color(0xffCBCBCB)),
         button: TextStyle(fontSize: 24, color: Colors.white),
         caption: TextStyle(fontSize: 18, color: Color(0xffCBCBCB)),
       ),
@@ -55,8 +62,10 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 
+  static const double maxWidth = 1366;
   static const double drawerBreakPoint = 800;
 
+  static const Color titleAccentColor = Color(0xff00C1E5);
   static const Color backgroundWaterMarkColor = Color(0xff606060);
   static const Color cursorColor = Color(0xff008CA5);
 
@@ -71,7 +80,10 @@ class AppTheme {
 
   static const double cardWidth = 360;
 
+  static const double headerFooterHeight = 100;
+  static const double headerFooterDrawerHeight = 60;
   static const double footerImageHeight = 36;
+  static const double footerImageDrawerHeight = 28;
 
   static const double borderWidth = 2;
 }

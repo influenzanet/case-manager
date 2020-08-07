@@ -25,15 +25,15 @@ class Spacing extends StatelessWidget {
     );
   }
 
-  factory Spacing.scaled({double factor: 1}) {
+  factory Spacing.scaled(double factor) {
     return Spacing(width: AppTheme.spacing * factor, height: AppTheme.spacing * factor);
   }
 
-  factory Spacing.scaledHorizontal({double factor: 1}) {
+  factory Spacing.scaledHorizontal(double factor) {
     return Spacing(width: AppTheme.spacing * factor, height: 0);
   }
 
-  factory Spacing.scaledVertical({double factor: 1}) {
+  factory Spacing.scaledVertical(double factor) {
     return Spacing(width: 0, height: AppTheme.spacing * factor);
   }
 

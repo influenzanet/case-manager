@@ -1,3 +1,4 @@
+import 'package:case_manager/ui/common/widgets/layout/BreakPoint.dart';
 import 'package:flutter/material.dart';
 
 class FooterButton extends StatelessWidget {
@@ -10,7 +11,11 @@ class FooterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return FlatButton(
-      child: Text(text, style: theme.appBarTheme.textTheme.caption),
+      child: Text(
+        text,
+        style:
+            drawerBreakPoint(context) ? theme.appBarTheme.textTheme.bodyText2 : theme.appBarTheme.textTheme.bodyText1,
+      ),
       onPressed: onPressed,
     );
   }

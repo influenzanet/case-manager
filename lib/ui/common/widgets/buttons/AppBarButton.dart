@@ -1,4 +1,3 @@
-import 'package:case_manager/ui/common/widgets/layout/BreakPoint.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 

@@ -3,5 +3,5 @@ import 'package:case_manager/ui/common/widgets/scaffolds/BackgroundFooterScaffol
 import 'package:flutter/material.dart';
 
 class UnauthScaffold extends BackgroundFooterScaffold {
-  UnauthScaffold(Widget content) : super(UnauthAppBar(), content);
+  UnauthScaffold(BuildContext context, Widget content) : super(UnauthAppBar(context), content);
 }

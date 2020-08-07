@@ -6,14 +6,14 @@ import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double _height = 100;
   final List<AppBarButton> _actions;
+  final BuildContext context;
 
-  ThemedAppBar(this._actions);
+  double get _height => drawerBreakPoint(context) ? AppTheme.headerFooterDrawerHeight : AppTheme.headerFooterHeight;
+
+  ThemedAppBar(this.context, this._actions);
 
   Widget getDrawer() => AngleDrawer(_actions);
-
-  // double getPlannedHeight() => _height;
 
   Widget _actionWidgets(BuildContext context) {
     var theme = Theme.of(context);
@@ -43,6 +43,9 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var titleStyle =
+        drawerBreakPoint(context) ? theme.appBarTheme.textTheme.headline6 : theme.appBarTheme.textTheme.headline5;
+
     return Container(
       color: theme.appBarTheme.color,
       height: _height,
@@ -50,11 +53,11 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacing),
           child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 1366),
+            constraints: BoxConstraints(maxWidth: AppTheme.maxWidth),
             child: Row(
               children: [
-                Text("CASE ", style: theme.appBarTheme.textTheme.headline6.apply(color: Color(0xff00C1E5))),
-                Text("Manager", style: theme.appBarTheme.textTheme.headline6),
+                Text("CASE ", style: titleStyle.apply(color: AppTheme.titleAccentColor)),
+                Text("Manager", style: titleStyle),
                 Spacer(),
                 _actionWidgets(context),
               ],
