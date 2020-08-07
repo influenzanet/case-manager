@@ -9,7 +9,8 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<AppBarButton> _actions;
   final BuildContext context;
 
-  double get _height => drawerBreakPoint(context) ? AppTheme.headerFooterDrawerHeight : AppTheme.headerFooterHeight;
+  double get _height =>
+      noBackgroundBreakPoint(context) ? AppTheme.headerFooterNoBackgroundHeight : AppTheme.headerFooterHeight;
 
   ThemedAppBar(this.context, this._actions);
 
@@ -32,6 +33,7 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
     } else {
       return IconButton(
+        padding: EdgeInsets.zero,
         icon: Icon(Icons.menu),
         color: theme.appBarTheme.iconTheme.color,
         iconSize: theme.appBarTheme.iconTheme.size,
@@ -43,15 +45,17 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var drawer = drawerBreakPoint(context);
-    var titleStyle = drawer ? theme.appBarTheme.textTheme.headline6 : theme.appBarTheme.textTheme.headline5;
+    var noBackground = noBackgroundBreakPoint(context);
+    var titleStyle = noBackground ? theme.appBarTheme.textTheme.headline6 : theme.appBarTheme.textTheme.headline5;
+    var spacing = noBackground ? AppTheme.noBackgroundSpacing : AppTheme.spacing;
 
     return Container(
       color: theme.appBarTheme.color,
       height: _height,
       child: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: drawer ? AppTheme.drawerSpacing : AppTheme.spacing),
+          padding: EdgeInsets.only(
+              left: spacing, right: noBackground ? spacing - AppTheme.noBackgroundSpacingMenuIconFix : spacing),
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: AppTheme.maxWidth),
             child: Row(

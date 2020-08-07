@@ -63,17 +63,20 @@ class AppTheme {
   );
 
   static const double maxWidth = 1366;
+
   static const double drawerBreakPoint = 800;
+  static const double noBackgroundBreakPoint = 500;
 
   static const Color titleAccentColor = Color(0xff00C1E5);
   static const Color backgroundWaterMarkColor = Color(0xff606060);
   static const Color cursorColor = Color(0xff008CA5);
 
   static const double spacing = 42;
-  static const double drawerSpacing = 21;
+  static const double noBackgroundSpacing = 21;
   static const double headlineSpacing = 32;
   static const double formElementSpacing = 20;
   static const double labelSpacing = 8;
+  static const double noBackgroundSpacingMenuIconFix = 9;
 
   static const double actionButtonPadding = 12;
   static const double drawerLeftPadding = 75;
@@ -83,9 +86,9 @@ class AppTheme {
   static const double drawerWidth = 240;
 
   static const double headerFooterHeight = 100;
-  static const double headerFooterDrawerHeight = 60;
+  static const double headerFooterNoBackgroundHeight = 60;
   static const double footerImageHeight = 36;
-  static const double footerImageDrawerHeight = 28;
+  static const double footerImageNoBackgroundHeight = 28;
 
   static const double borderWidth = 2;
 }

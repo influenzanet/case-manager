@@ -8,3 +8,7 @@ bool breakPoint(BuildContext context, double breakValue) {
 bool drawerBreakPoint(BuildContext context) {
   return breakPoint(context, AppTheme.drawerBreakPoint);
 }
+
+bool noBackgroundBreakPoint(BuildContext context) {
+  return breakPoint(context, AppTheme.noBackgroundBreakPoint);
+}

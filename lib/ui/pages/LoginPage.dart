@@ -1,6 +1,6 @@
 import 'package:case_manager/logic/LoginManager.dart';
 import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
-import 'package:case_manager/ui/common/widgets/cards/Card.dart';
+import 'package:case_manager/ui/common/widgets/cards/MainCard.dart';
 import 'package:case_manager/ui/common/widgets/inputs/FormButton.dart';
 import 'package:case_manager/ui/common/widgets/inputs/FormInput.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/UnauthScaffold.dart';

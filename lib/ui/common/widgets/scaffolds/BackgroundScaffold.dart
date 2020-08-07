@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:case_manager/ui/common/widgets/app-bars/ThemedAppBar.dart';
 import 'package:case_manager/ui/common/widgets/images/SvgImage.dart';
+import 'package:case_manager/ui/common/widgets/layout/BreakPoint.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
@@ -38,17 +39,19 @@ class BackgroundScaffold extends Scaffold {
                 return Stack(
                   fit: StackFit.expand,
                   children: [
-                    Positioned.fromRect(
-                      rect: Rect.fromLTWH(Alignment.topLeft.x - excessWidth / 2,
-                          Alignment.topLeft.y - appBarHeight - excessHeight / 2, imageWidth, imageHeight),
-                      child: svgImageAsset(
-                        "images/logos/ConenoLogo.svg",
-                        color: AppTheme.backgroundWaterMarkColor,
-                        fit: BoxFit.fill,
-                        width: imageWidth,
-                        height: imageHeight,
-                      ),
-                    ),
+                    noBackgroundBreakPoint(context)
+                        ? Container(color: Theme.of(context).cardColor)
+                        : Positioned.fromRect(
+                            rect: Rect.fromLTWH(Alignment.topLeft.x - excessWidth / 2,
+                                Alignment.topLeft.y - appBarHeight - excessHeight / 2, imageWidth, imageHeight),
+                            child: svgImageAsset(
+                              "images/logos/ConenoLogo.svg",
+                              color: AppTheme.backgroundWaterMarkColor,
+                              fit: BoxFit.fill,
+                              width: imageWidth,
+                              height: imageHeight,
+                            ),
+                          ),
                     SingleChildScrollView(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
