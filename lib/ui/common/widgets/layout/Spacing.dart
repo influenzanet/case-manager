@@ -1,3 +1,4 @@
+import 'package:case_manager/ui/common/widgets/layout/BreakPoint.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,10 @@ class Spacing extends StatelessWidget {
       width: 0,
       height: height,
     );
+  }
+
+  factory Spacing.responsive(BuildContext context) {
+    return Spacing.uniform(noBackgroundBreakPoint(context) ? AppTheme.noBackgroundSpacing : AppTheme.spacing);
   }
 
   factory Spacing.scaled(double factor) {

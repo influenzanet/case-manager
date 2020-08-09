@@ -64,7 +64,7 @@ class AppTheme {
 
   static const double maxWidth = 1366;
 
-  static const double drawerBreakPoint = 800;
+  static const double drawerBreakPoint = 870;
   static const double noBackgroundBreakPoint = 500;
 
   static const Color titleAccentColor = Color(0xff00C1E5);
@@ -79,7 +79,7 @@ class AppTheme {
   static const double noBackgroundSpacingMenuIconFix = 9;
 
   static const double actionButtonPadding = 12;
-  static const double drawerLeftPadding = 75;
+  static const double drawerLeftPadding = 60;
   static const double footerImageBottomPadding = 16;
 
   static const double cardWidth = 360;
