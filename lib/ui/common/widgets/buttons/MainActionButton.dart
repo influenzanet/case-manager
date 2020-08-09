@@ -14,9 +14,12 @@ class MainActionButton extends StatelessWidget {
       onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(AppTheme.actionButtonPadding),
-        child: Text(text),
+        child: Text(
+          text,
+          style: AppTheme.mainButtonTextStyle,
+        ),
       ),
-      color: theme.primaryColor,
+      color: theme.accentColor,
     );
   }
 }

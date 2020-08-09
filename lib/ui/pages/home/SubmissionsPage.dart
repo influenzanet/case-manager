@@ -213,7 +213,6 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
           ],
         ),
         onPressed: () async {
-          print("$initialDate $firstDate $lastDate");
           var newDate = await showDatePicker(
             context: context,
             initialDate: initialDate,

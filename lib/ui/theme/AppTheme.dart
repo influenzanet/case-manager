@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final themeData = ThemeData(
     fontFamily: "Lato",
-    primaryColor: Color(0xffE6E15A),
-    primaryColorBrightness: Brightness.light,
-    accentColor: Color(0xff008ca5),
-    accentColorBrightness: Brightness.dark,
+    colorScheme: ColorScheme.light(
+      primary: Color(0xff008ca5),
+      secondary: Color(0xffE6E15A),
+    ),
+    primaryColor: Color(0xff008ca5),
+    primaryColorBrightness: Brightness.dark,
+    accentColor: Color(0xffE6E15A),
+    accentColorBrightness: Brightness.light,
     canvasColor: Colors.white,
     cursorColor: cursorColor,
     textSelectionHandleColor: cursorColor,
@@ -56,7 +60,6 @@ class AppTheme {
       filled: true,
       fillColor: Color(0xffEDEDED),
     ),
-    textTheme: TextTheme(button: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)),
     cardColor: Colors.white,
     bottomAppBarColor: Color(0xff505050),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -92,4 +95,6 @@ class AppTheme {
   static const double footerImageNoBackgroundHeight = 28;
 
   static const double borderWidth = 2;
+
+  static const TextStyle mainButtonTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
 }
