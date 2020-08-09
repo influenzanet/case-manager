@@ -204,7 +204,7 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
         child: Row(
           children: [
             Text(
-              DateFormat(DateFormat.YEAR_NUM_MONTH_DAY).format(initialDate),
+              DateFormat.yMd(Intl.getCurrentLocale()).format(initialDate),
               style: theme.textTheme.subtitle1,
               textAlign: TextAlign.start,
             ),

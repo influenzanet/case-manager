@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   global_configuration: ^1.5.0
   dio: ^3.0.9
   protobuf: ^1.0.1

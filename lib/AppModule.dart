@@ -4,6 +4,7 @@ import 'package:case_manager/ui/pages/home/HomeModule.dart';
 import 'package:case_manager/ui/pages/home/RedirectPage.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'ui/pages/LoginPage.dart';
 
@@ -30,6 +31,15 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'CASE Manager',
       theme: AppTheme.themeData,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale("en", "US"),
+        const Locale("de", "DE"),
+      ],
       navigatorKey: Modular.navigatorKey,
       initialRoute: AppRoutes.login,
       onGenerateRoute: Modular.generateRoute,
