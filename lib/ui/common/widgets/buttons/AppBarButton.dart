@@ -8,10 +8,10 @@ class AppBarButton extends StatelessWidget {
   AppBarButton(this.title, {this.onPressed});
 
   Widget _text(BuildContext context, TextAlign textAlign) {
-    var theme = Theme.of(context);
+    var textTheme = Theme.of(context).appBarTheme.textTheme.button;
     return Text(
       title,
-      style: theme.appBarTheme.textTheme.button,
+      style: onPressed == null ? textTheme.apply(color: AppTheme.disabledAppBarButtonColor) : textTheme,
       textAlign: textAlign,
     );
   }

@@ -70,6 +70,7 @@ class AppTheme {
   static const Color titleAccentColor = Color(0xff00C1E5);
   static const Color backgroundWaterMarkColor = Color(0xff606060);
   static const Color cursorColor = Color(0xff008CA5);
+  static const Color disabledAppBarButtonColor = Color(0xff007E95);
 
   static const double spacing = 42;
   static const double noBackgroundSpacing = 21;
