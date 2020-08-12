@@ -3,7 +3,7 @@ import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/HomeModule.dart';
 import 'package:case_manager/ui/pages/home/RedirectPage.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Router;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'ui/pages/LoginPage.dart';
