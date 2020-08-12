@@ -85,6 +85,8 @@ class AppTheme {
   static const double actionButtonPadding = 12;
   static const double drawerLeftPadding = 60;
   static const double footerImageBottomPadding = 16;
+  static const double inputHorizontalPadding = 24;
+  static const double inputVerticalPadding = 20;
 
   static const double cardWidth = 360;
   static const double drawerWidth = 240;
@@ -97,4 +99,5 @@ class AppTheme {
   static const double borderWidth = 2;
 
   static const TextStyle mainButtonTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
+  static const TextStyle hintTextStyle = TextStyle(color: Color(0xffA5A5A5), fontSize: 16);
 }

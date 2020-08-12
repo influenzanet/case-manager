@@ -5,6 +5,8 @@ import 'package:case_manager/generated/api/study_service/study.pb.dart';
 import 'package:case_manager/logic/FileSaver.dart';
 import 'package:case_manager/ui/common/widgets/buttons/MainActionButton.dart';
 import 'package:case_manager/ui/common/widgets/cards/MainCard.dart';
+import 'package:case_manager/ui/common/widgets/inputs/DatePicker.dart';
+import 'package:case_manager/ui/common/widgets/inputs/FormButton.dart';
 import 'package:case_manager/ui/common/widgets/inputs/FormInput.dart';
 import 'package:case_manager/ui/common/widgets/layout/Spacing.dart';
 import 'package:case_manager/ui/common/widgets/scaffolds/AuthScaffold.dart';
@@ -13,8 +15,6 @@ import 'package:case_manager/ui/theme/AppTheme.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-
-import 'package:intl/intl.dart';
 
 class SubmissionsPage extends StatefulWidget {
   @override
@@ -188,50 +188,6 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
     }
   }
 
-  Widget _datePicker(
-    BuildContext context,
-    DateTime initialDate,
-    DateTime firstDate,
-    DateTime lastDate,
-    Function(DateTime) onNewDate,
-  ) {
-    var theme = Theme.of(context);
-    return SizedBox(
-      width: (AppTheme.cardWidth - AppTheme.spacing) / 2,
-      child: FlatButton(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-        color: theme.inputDecorationTheme.fillColor,
-        child: Row(
-          children: [
-            Text(
-              DateFormat.yMd(Intl.getCurrentLocale()).format(initialDate),
-              style: theme.textTheme.subtitle1,
-              textAlign: TextAlign.start,
-            ),
-            Spacer(),
-            Icon(
-              Icons.arrow_drop_down,
-              color: Colors.grey.shade700,
-            ),
-          ],
-        ),
-        onPressed: () async {
-          var newDate = await showDatePicker(
-            context: context,
-            initialDate: initialDate,
-            firstDate: firstDate,
-            lastDate: lastDate,
-            locale: Locale(Intl.shortLocale(Intl.getCurrentLocale())),
-          );
-
-          if (newDate != null) {
-            onNewDate(newDate);
-          }
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
@@ -263,12 +219,11 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
               Expanded(
                 child: FormInput(
                   "Start Date",
-                  _datePicker(
-                    context,
-                    _startDate,
-                    DateTime(2019),
-                    _endDate.subtract(Duration(days: 1)),
-                    (newDate) {
+                  DatePicker(
+                    initialDate: _startDate,
+                    firstDate: DateTime(2019),
+                    lastDate: _endDate.subtract(Duration(days: 1)),
+                    onNewDate: (newDate) {
                       setState(() {
                         _startDate = newDate;
                         _fetchResponseStatistics();
@@ -281,12 +236,11 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
               Expanded(
                 child: FormInput(
                   "End Date",
-                  _datePicker(
-                      context,
-                      _endDate,
-                      _startDate.add(Duration(days: 1)),
-                      _getLastEndDate(),
-                      (newDate) => setState(() {
+                  DatePicker(
+                      initialDate: _endDate,
+                      firstDate: _startDate.add(Duration(days: 1)),
+                      lastDate: _getLastEndDate(),
+                      onNewDate: (newDate) => setState(() {
                             _endDate = newDate;
                             _fetchResponseStatistics();
                           })),
@@ -314,28 +268,27 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                     onChanged: null,
                   ),
           ),
-          Spacing(
-            height: 16,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Text(_getCurrentResponseCount().toString(),
-                      style: TextStyle(color: Color(0xffA5A5A5), fontSize: 16, fontWeight: FontWeight.w700)),
-                  Text(
-                    " Submissions Selected",
-                    style: TextStyle(color: Color(0xffA5A5A5), fontSize: 16),
-                  ),
-                ],
-              ),
-              Spacing.label(),
-              MainActionButton(
-                text: "Download",
-                onPressed: _getCurrentResponseCount() > 0 ? _downloadResponses : null,
-              ),
-            ],
+          FormButton(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Text(_getCurrentResponseCount().toString(),
+                        style: AppTheme.hintTextStyle.copyWith(fontWeight: FontWeight.w700)),
+                    Text(
+                      " Submissions Selected",
+                      style: AppTheme.hintTextStyle,
+                    ),
+                  ],
+                ),
+                Spacing.label(),
+                MainActionButton(
+                  text: "Download",
+                  onPressed: _getCurrentResponseCount() > 0 ? _downloadResponses : null,
+                ),
+              ],
+            ),
           ),
         ],
       )),
