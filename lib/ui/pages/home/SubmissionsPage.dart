@@ -254,26 +254,6 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
               },
             ),
           ),
-          FormInput(
-            "Survey",
-            _studies.isNotEmpty
-                ? DropdownButtonFormField(
-                    value: _selectedSurveyKey,
-                    items: _selectableSurveyKeys
-                        .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
-                            value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
-                        .toList(),
-                    onChanged: (String newSurveyKey) => {
-                      setState(() {
-                        _selectedSurveyKey = newSurveyKey;
-                      })
-                    },
-                  )
-                : DropdownButtonFormField(
-                    items: [],
-                    onChanged: null,
-                  ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -310,6 +290,26 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                 ),
               ),
             ],
+          ),
+          FormInput(
+            "Survey",
+            _studies.isNotEmpty
+                ? DropdownButtonFormField(
+                    value: _selectedSurveyKey,
+                    items: _selectableSurveyKeys
+                        .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
+                            value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
+                        .toList(),
+                    onChanged: (String newSurveyKey) => {
+                      setState(() {
+                        _selectedSurveyKey = newSurveyKey;
+                      })
+                    },
+                  )
+                : DropdownButtonFormField(
+                    items: [],
+                    onChanged: null,
+                  ),
           ),
           Spacing(
             height: 16,
