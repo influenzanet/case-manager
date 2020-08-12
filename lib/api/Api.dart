@@ -148,16 +148,30 @@ class Api {
       if (response.statusCode == 200) {
         if (onSuccess != null) onSuccess(response);
       } else {
-        var errorMessage = "${response.statusCode}: ${response.statusMessage}";
-        print(errorMessage);
-        ErrorDialog.display(context, errorMessage);
-        if (onServerError != null) onServerError(response);
+        onResponseError(context, response, onServerError);
+      }
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.RESPONSE) {
+        onResponseError(context, e.response, onServerError);
+      } else {
+        onExceptionError(context, e, onException);
       }
     } catch (e) {
-      print(e.toString());
-      ErrorDialog.display(context, e.toString());
-      if (onException != null) onException(e);
+      onExceptionError(context, e, onException);
     }
+  }
+
+  static onResponseError(BuildContext context, Response response, Function(Response) onServerError) {
+    var errorMessage = "${response.statusCode}: ${response.statusMessage}\n ${response.data}";
+    print(errorMessage);
+    ErrorDialog.display(context, errorMessage);
+    if (onServerError != null) onServerError(response);
+  }
+
+  static onExceptionError(BuildContext context, Exception e, Function(dynamic) onException) {
+    print(e.toString());
+    ErrorDialog.display(context, e.toString());
+    if (onException != null) onException(e);
   }
 
   static updateAuthentication(String accessToken) {
