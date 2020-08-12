@@ -56,6 +56,13 @@ class Api {
         _unlockAuthInstances();
         return options;
       },
+      onError: (DioError error) {
+        if (error.response?.statusCode == 401) {
+          resetAuthentication();
+        }
+
+        return error;
+      },
     );
   }
 
@@ -84,7 +91,9 @@ class Api {
           throw Exception("${response.statusCode}: ${response.statusMessage}");
         }
       }
-    } else if (_appState.expiresAt < DateTime.now().millisecondsSinceEpoch) {
+    } else if (_appState.expiresAt < DateTime.now().millisecondsSinceEpoch ||
+        _appState.accessToken == null ||
+        _appState.accessToken.length < 1) {
       throw Exception("No valid tokens.");
     }
 
@@ -164,7 +173,7 @@ class Api {
   static onResponseError(BuildContext context, Response response, Function(Response) onServerError) {
     var errorMessage = "${response.statusCode}: ${response.statusMessage}\n ${response.data}";
     print(errorMessage);
-    ErrorDialog.display(context, errorMessage);
+    if (response.statusCode != 401) ErrorDialog.display(context, errorMessage);
     if (onServerError != null) onServerError(response);
   }
 
