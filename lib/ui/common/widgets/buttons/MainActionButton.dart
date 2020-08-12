@@ -20,6 +20,7 @@ class MainActionButton extends StatelessWidget {
         ),
       ),
       color: theme.accentColor,
+      disabledColor: theme.disabledColor,
     );
   }
 }
