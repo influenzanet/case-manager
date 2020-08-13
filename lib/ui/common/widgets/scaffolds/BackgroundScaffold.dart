@@ -45,7 +45,7 @@ class BackgroundScaffold extends Scaffold {
                             rect: Rect.fromLTWH(Alignment.topLeft.x - excessWidth / 2,
                                 Alignment.topLeft.y - appBarHeight - excessHeight / 2, imageWidth, imageHeight),
                             child: svgImageAsset(
-                              "images/logos/ConenoLogo.svg",
+                              "assets/images/logos/ConenoLogo.svg",
                               color: AppTheme.backgroundWaterMarkColor,
                               fit: BoxFit.fill,
                               width: imageWidth,

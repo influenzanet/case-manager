@@ -26,7 +26,7 @@ class Footer extends StatelessWidget {
                 FooterButton(text: "Privacy Policy", onPressed: () {}),
                 Spacer(),
                 noBackground
-                    ? svgImageAsset("images/logos/ConenoLogo.svg",
+                    ? svgImageAsset("assets/images/logos/ConenoLogo.svg",
                         color: theme.appBarTheme.textTheme.bodyText2.color,
                         height: AppTheme.footerImageNoBackgroundHeight)
                     : Padding(
