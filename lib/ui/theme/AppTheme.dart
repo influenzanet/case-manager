@@ -63,7 +63,7 @@ class AppTheme {
     cardColor: Colors.white,
     bottomAppBarColor: Color(0xff505050),
     disabledColor: Color(0xffF5F5F5),
-    visualDensity: VisualDensity.adaptivePlatformDensity,
+    visualDensity: VisualDensity.compact,
   );
 
   static const double maxWidth = 1366;
