@@ -87,7 +87,7 @@ class AppTheme {
   static const double drawerLeftPadding = 60;
   static const double footerImageBottomPadding = 16;
   static const double inputHorizontalPadding = 24;
-  static const double inputVerticalPadding = 20;
+  static const double inputVerticalPadding = 22;
 
   static const double cardWidth = 360;
   static const double drawerWidth = 240;
