@@ -13,8 +13,9 @@ class FooterButton extends StatelessWidget {
     return FlatButton(
       child: Text(
         text,
-        style:
-            drawerBreakPoint(context) ? theme.appBarTheme.textTheme.bodyText2 : theme.appBarTheme.textTheme.bodyText1,
+        style: noBackgroundBreakPoint(context)
+            ? theme.appBarTheme.textTheme.bodyText2
+            : theme.appBarTheme.textTheme.bodyText1,
       ),
       onPressed: onPressed,
     );
