@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static final themeData = ThemeData(
+    visualDensity: VisualDensity.compact,
     fontFamily: "Lato",
     colorScheme: ColorScheme.light(
       primary: Color(0xff008ca5),
@@ -17,6 +18,9 @@ class AppTheme {
     textSelectionHandleColor: cursorColor,
     textSelectionColor: Color(0xff00C1E5),
     scaffoldBackgroundColor: Color(0xff646464),
+    cardColor: Colors.white,
+    bottomAppBarColor: Color(0xff505050),
+    disabledColor: Color(0xffF5F5F5),
     cupertinoOverrideTheme: CupertinoThemeData(
       primaryColor: cursorColor,
     ),
@@ -60,10 +64,6 @@ class AppTheme {
       filled: true,
       fillColor: Color(0xffEDEDED),
     ),
-    cardColor: Colors.white,
-    bottomAppBarColor: Color(0xff505050),
-    disabledColor: Color(0xffF5F5F5),
-    visualDensity: VisualDensity.compact,
   );
 
   static const double maxWidth = 1366;
@@ -75,6 +75,9 @@ class AppTheme {
   static const Color backgroundWaterMarkColor = Color(0xff606060);
   static const Color cursorColor = Color(0xff008CA5);
   static const Color disabledAppBarButtonColor = Color(0xff007E95);
+
+  static const TextStyle mainButtonTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
+  static const TextStyle hintTextStyle = TextStyle(color: Color(0xffA5A5A5), fontSize: 16);
 
   static const double spacing = 42;
   static const double noBackgroundSpacing = 21;
@@ -98,7 +101,4 @@ class AppTheme {
   static const double footerImageNoBackgroundHeight = 28;
 
   static const double borderWidth = 2;
-
-  static const TextStyle mainButtonTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
-  static const TextStyle hintTextStyle = TextStyle(color: Color(0xffA5A5A5), fontSize: 16);
 }
