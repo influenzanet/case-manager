@@ -205,11 +205,12 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                   .map<DropdownMenuItem<String>>(
                       (Study study) => DropdownMenuItem<String>(value: study.key, child: Text(study.key)))
                   .toList(),
-              onChanged: (String newStudyKey) => {
+              onChanged: (String newStudyKey) {
+                if (newStudyKey == _selectedStudyKey) return;
                 setState(() {
                   _selectedStudyKey = newStudyKey;
                   _onStudySelected();
-                })
+                });
               },
             ),
           ),
@@ -257,10 +258,11 @@ class _SubmissionsPageState extends State<SubmissionsPage> {
                         .map<DropdownMenuItem<String>>((String survey) => DropdownMenuItem<String>(
                             value: survey, child: Text(survey == ALL_SURVEYS_KEY ? "All Surveys" : survey)))
                         .toList(),
-                    onChanged: (String newSurveyKey) => {
+                    onChanged: (String newSurveyKey) {
+                      if (newSurveyKey == _selectedSurveyKey) return;
                       setState(() {
                         _selectedSurveyKey = newSurveyKey;
-                      })
+                      });
                     },
                   )
                 : DropdownButtonFormField(
