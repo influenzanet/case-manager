@@ -29,11 +29,6 @@ class DatePicker extends StatelessWidget {
             style: theme.textTheme.subtitle1,
             textAlign: TextAlign.start,
           ),
-          Spacer(),
-          Icon(
-            Icons.arrow_drop_down,
-            color: Colors.grey.shade700,
-          ),
         ],
       ),
       onPressed: () async {
