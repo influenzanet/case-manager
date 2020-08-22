@@ -3,7 +3,7 @@ import 'package:case_manager/ui/common/routes/AppRoutes.dart';
 import 'package:case_manager/ui/pages/home/HomeModule.dart';
 import 'package:case_manager/ui/pages/home/RedirectPage.dart';
 import 'package:case_manager/ui/theme/AppTheme.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'ui/pages/LoginPage.dart';
@@ -15,10 +15,10 @@ class AppModule extends MainModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(AppRoutes.root, child: (_, __) => RedirectPage()),
-        Router(AppRoutes.login, child: (_, __) => LoginPage()),
-        Router(AppRoutes.home, module: HomeModule()),
+  List<ModularRouter> get routers => [
+        ModularRouter(AppRoutes.root, child: (_, __) => RedirectPage()),
+        ModularRouter(AppRoutes.login, child: (_, __) => LoginPage()),
+        ModularRouter(AppRoutes.home, module: HomeModule()),
       ];
 
   @override

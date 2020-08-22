@@ -8,8 +8,8 @@ class HomeModule extends ChildModule {
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [
-        Router(HomeRoutes.root, child: (_, __) => authGuard(SubmissionsPage())),
-        Router(HomeRoutes.data, child: (_, __) => authGuard(SubmissionsPage())),
+  List<ModularRouter> get routers => [
+        ModularRouter(HomeRoutes.root, child: (_, __) => authGuard(SubmissionsPage())),
+        ModularRouter(HomeRoutes.data, child: (_, __) => authGuard(SubmissionsPage())),
       ];
 }
