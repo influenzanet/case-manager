@@ -16,6 +16,7 @@ typedef ApiFunctionWithoutParameter = Future<Response> Function();
 class Api {
   static const String VERSION_URL = "/v1";
   static const String AUTH_URL = "$VERSION_URL/auth";
+  static const String STUDY_URL = "$VERSION_URL/study";
   static const String DATA_URL = "$VERSION_URL/data";
 
   static const int TOKEN_RENEW_THRESHOLD = 60000;
