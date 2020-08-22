@@ -16,11 +16,15 @@ class AuthAppBar extends ThemedAppBar {
               onPressed: () => {Modular.to.pushNamed(HomeRoutes.navigationRoute(HomeRoutes.root))},
             ),
             AppBarButton(
-              "Submissions",
-              onPressed: () => {Modular.to.pushNamed(HomeRoutes.navigationRoute(HomeRoutes.submissions))},
+              "Data",
+              onPressed: () => {Modular.to.pushNamed(HomeRoutes.navigationRoute(HomeRoutes.data))},
             ),
             AppBarButton(
               "Studies",
+              onPressed: null,
+            ),
+            AppBarButton(
+              "Users",
               onPressed: null,
             ),
             AppBarButton(

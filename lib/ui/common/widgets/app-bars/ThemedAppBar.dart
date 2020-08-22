@@ -24,7 +24,7 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       for (int i = 0; i < _actions.length; i++) {
         widgets.add(_actions[i]);
-        if (i < _actions.length - 1) widgets.add(Spacing.horizontal());
+        if (i < _actions.length - 1) widgets.add(Spacing.scaledHorizontal(.5));
       }
 
       return Row(
